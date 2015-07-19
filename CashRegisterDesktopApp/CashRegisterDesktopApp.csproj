@@ -51,6 +51,7 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +92,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CashRegister.Infrastructure\CashRegister.Infrastructure.csproj">
+      <Project>{e0cd51e9-34aa-449c-b353-93224fcddb8a}</Project>
+      <Name>CashRegister.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\CashRegister.Core.csproj">
+      <Project>{0bde128e-0fb7-4ee0-a3d5-a449dc01d78e}</Project>
+      <Name>CashRegister.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
