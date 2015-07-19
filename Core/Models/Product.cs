@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CashRegister.Core.Models
 {
@@ -10,5 +11,10 @@ namespace CashRegister.Core.Models
         public string LongDescription { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+    }
+
+    public class WigItem : Product
+    {
+        public List<string> AvailableColors { get; set; } 
     }
 }
