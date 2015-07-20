@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using CashRegister.Core.Models;
+using CashRegister.Infrastructure.SquareMessages;
 using RestSharp;
+using RestSharp.Serializers;
 
 namespace CashRegister.Infrastructure.Repository
 {
@@ -23,14 +26,21 @@ namespace CashRegister.Infrastructure.Repository
             request.AddHeader("Content-Type", "application/json");
         }
 
-        public void SaveItem(Item item)
+        public void UpdateItem(UpdateMessage message)
         {
-            request.AddJsonBody(item);
+            var serialItem = new JsonSerializer();
+            serialItem.Serialize(message.Item);
+
         }
 
-        public Item GetItem(Guid id)
+        public Item FindItem(Guid id)
         {
             return new Item();
+        }
+
+        public List<IItem> GetAllItems(GetAllMessage message)
+        {
+            return new List<IItem>();
         }
     }
 
@@ -38,8 +48,8 @@ namespace CashRegister.Infrastructure.Repository
 
     public interface IRepository<TItem>
     {
-        void SaveItem(TItem item);
-        TItem GetItem(Guid id);
+        void UpdateItem(UpdateMessage message);
+        TItem FindItem(Guid id);
     }
 
 }

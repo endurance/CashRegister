@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SendRecieveRequestsFromSquare</RootNamespace>
     <AssemblyName>SendRecieveRequestsFromSquare</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CashRegister.Infrastructure\CashRegister.Infrastructure.csproj">
+      <Project>{E0CD51E9-34AA-449C-B353-93224FCDDB8A}</Project>
+      <Name>CashRegister.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\CashRegister.Core.csproj">
       <Project>{0bde128e-0fb7-4ee0-a3d5-a449dc01d78e}</Project>
       <Name>CashRegister.Core</Name>
