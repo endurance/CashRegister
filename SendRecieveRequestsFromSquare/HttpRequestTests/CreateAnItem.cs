@@ -8,7 +8,13 @@ namespace SendRecieveRequestsFromSquare.HttpRequestTests
     public class RequestsToSquareTester
     {
 
-
+        public void SetHeaders(RestRequest request, string Access_Token)
+        {
+            // Standard header for square connect api requests
+            request.AddHeader("Authorization", "Bearer " + Access_Token);
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "application/json");
+        }
         [Test]
         public void CreateAnItem() 
         {
@@ -25,8 +31,8 @@ namespace SendRecieveRequestsFromSquare.HttpRequestTests
             //Act
             var client = new RestClient(getMessage.EndPoint);
 
-            var request = new RestRequest("/v1/" + Access_Token + "/items", Method.GET);
-
+            var request = new RestRequest("/v1/"+ "me" + "/items", Method.GET);
+            SetHeaders(request, Access_Token);
             // execute the request
             IRestResponse response = client.Execute(request);
             var content = response.Content; // raw content as string
