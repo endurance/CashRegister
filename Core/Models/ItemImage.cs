@@ -4,7 +4,7 @@ namespace CashRegister.Core.Models
 {
     public class ItemImage
     {
-        public Guid Identifier { get; set; }
-        public Uri URL { get; set; }
+        public Guid Id { get; set; }
+        public Uri Uri { get; set; }
     }
 }

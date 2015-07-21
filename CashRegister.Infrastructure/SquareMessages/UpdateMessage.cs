@@ -1,4 +1,5 @@
 ﻿using CashRegister.Core.Models;
+using CashRegister.Core.Models.Interfaces;
 using CashRegister.Infrastructure.Repository;
 
 namespace CashRegister.Infrastructure.SquareMessages

@@ -1,3 +1,5 @@
+using CashRegister.Core.Models.Enums;
+
 namespace CashRegister.Core.Models
 {
     public class Money

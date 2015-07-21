@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CashRegister.Core.Models;
+using CashRegister.Core.Models.Interfaces;
 using CashRegister.Infrastructure.SquareMessages;
 using RestSharp;
 using RestSharp.Serializers;

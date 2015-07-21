@@ -1,19 +1,20 @@
 using System;
+using CashRegister.Core.Models.Enums;
 
 namespace CashRegister.Core.Models
 {
     public class ItemVariation
     {
-        public Guid Identifier { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public Guid Item_Identifier { get; set; }
-        public int ordinal { get; set; }
-        public PricingType PricingType { get; set; }
+        public Guid Item_Id { get; set; }
+        public int Ordinal { get; set; }
+        public PricingType Pricing_Type { get; set; }
         public Money ItemPrice { get; set; }
-        public string SKU { get; set; }
-        public bool TrackInventory { get; set; }
-        public InventoryAlertType AlertType { get; set; }
-        public int AlertThreshold { get; set; }
-        public string UserData { get; set; }
+        public string Sku { get; set; }
+        public bool Track_Inventory { get; set; }
+        public InventoryAlertType Inventory_Alert_Type { get; set; }
+        public int Inventory_Alert_Threshold { get; set; }
+        public string User_Data { get; set; }
     }
 }

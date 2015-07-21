@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using CashRegister.Core.Models;
 using CashRegister.Infrastructure.SquareMessages;
 using NUnit.Framework;
 using RestSharp;
@@ -27,18 +29,16 @@ namespace SendRecieveRequestsFromSquare.HttpRequestTests
             //Arrange
             const string Access_Token = "QY7A2IAniekH7j2oPb75_g";
             var getMessage = new GetAllMessage();
+            var client = new RestClient(getMessage.EndPoint);
+            var request = new RestRequest("/v1/" + "me" + "/items", Method.GET);
 
             //Act
-            var client = new RestClient(getMessage.EndPoint);
-
-            var request = new RestRequest("/v1/"+ "me" + "/items", Method.GET);
             SetHeaders(request, Access_Token);
-            // execute the request
-            IRestResponse response = client.Execute(request);
-            var content = response.Content; // raw content as string
+            var items = client.Execute<List<ItemList>>(request);
 
             //Assert
-            Assert.IsNotNull(content);  //Currently a false positive due to a "Not Authorized" response...
+            //TODO: Need to make this test more robust by learning how to properly deserialize the reponse
+            Assert.That(items.Data.Count > 0);
         }
     }
 }

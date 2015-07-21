@@ -1,4 +1,5 @@
 using System;
+using CashRegister.Core.Models.Enums;
 
 namespace CashRegister.Core.Models
 {
