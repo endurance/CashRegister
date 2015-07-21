@@ -14,8 +14,9 @@ namespace CashRegister.Core.Models.Interfaces
         bool Available_Online { get; set; }
         ItemImage Master_Image { get; set; }
         ItemCategory Category { get; set; }
-        IEnumerable<ItemVariation> Variations { get; set; }
-        IEnumerable<Fee> Fees { get; set; }
+        List<ItemVariation> Variations { get; set; }
+        List<Fee> Fees { get; set; }
+        List<ModifierList> ModifierList { get; set; }
         ItemVisibility ItemVisibility { get; set; }
         ItemColor Color { get; set; }
     }

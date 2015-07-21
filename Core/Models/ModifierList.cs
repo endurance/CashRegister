@@ -1,14 +1,19 @@
 using System;
 using System.Collections.Generic;
 using CashRegister.Core.Models.Enums;
+using Newtonsoft.Json;
 
 namespace CashRegister.Core.Models
 {
     public class ModifierList
     {
+        [JsonProperty("id")]
         public Guid Id { get; set; }
+        [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("selection_type")]
         public SelectionType SelectionType { get; set; }
-        public IEnumerable<ModifierOptions> Modifier_Options { get; set; }
+        [JsonProperty("modifier_options")]
+        public List<ModifierOptions> Modifier_Options { get; set; }
     }
 }

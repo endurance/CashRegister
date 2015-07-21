@@ -1,44 +1,63 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using CashRegister.Core.Models;
 using CashRegister.Infrastructure.SquareMessages;
 using NUnit.Framework;
 using RestSharp;
+using RestSharp.Deserializers;
+using Utilities;
+
 namespace SendRecieveRequestsFromSquare.HttpRequestTests
 {
     [TestFixture]
     public class RequestsToSquareTester
     {
-
-        public void SetHeaders(RestRequest request, string Access_Token)
+        const string TestItemId = "af881f06-c3dd-4c74-94d6-58358fb1a8ea";
+        const string AccessToken = "DUxLfvEGFS2CAuW0J1CZ1Q";
+        public void SetHeaders(RestRequest request)
         {
             // Standard header for square connect api requests
-            request.AddHeader("Authorization", "Bearer " + Access_Token);
+            request.AddHeader("Authorization", "Bearer " + AccessToken);
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Content-Type", "application/json");
         }
-        [Test]
-        public void CreateAnItem() 
-        {
-
-        }
 
         [Test]
-        public void GetAllItems()
+        public void GetOneItem_Deserialize()
         {
             //Arrange
-            const string Access_Token = "QY7A2IAniekH7j2oPb75_g";
             var getMessage = new GetAllMessage();
             var client = new RestClient(getMessage.EndPoint);
-            var request = new RestRequest("/v1/" + "me" + "/items", Method.GET);
 
+            var request = new RestRequest("/v1/" + "me" + "/items/" + TestItemId, Method.GET);
+            SetHeaders(request);
+            request.RequestFormat = DataFormat.Json;
+            request.JsonSerializer = new RestSharpJsonNetSerializer();
             //Act
-            SetHeaders(request, Access_Token);
-            var items = client.Execute<List<ItemList>>(request);
+            var response = client.Execute(request);
 
+            var jsonD = new JsonDeserializer();
+
+            Item item = jsonD.Deserialize<Item>(response);
             //Assert
             //TODO: Need to make this test more robust by learning how to properly deserialize the reponse
-            Assert.That(items.Data.Count > 0);
+            Assert.That(item != null);
+        }
+        [Test]
+        public void GetOneItem_Execute()
+        {
+            //Arrange
+            var getMessage = new GetAllMessage();
+            var client = new RestClient(getMessage.EndPoint);
+
+            var request = new RestRequest("/v1/" + "me" + "/items/" + TestItemId, Method.GET);
+            SetHeaders(request);
+            request.RequestFormat = DataFormat.Json;
+            request.JsonSerializer = new RestSharpJsonNetSerializer();
+            //Act
+            var item = client.Execute<Item>(request);
+            //Assert
+            //TODO: Need to make this test more robust by learning how to properly deserialize the reponse
+            Assert.That(item.Data != null);
         }
     }
 }
