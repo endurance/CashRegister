@@ -24,7 +24,5 @@ namespace InfrastructureUnitTests
 
             Assert.That(item.Id == itemid);
         }
-
-
     }
 }
