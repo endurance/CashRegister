@@ -13,6 +13,7 @@ namespace SendRecieveRequestsFromSquare.HttpRequestTests
     {
         const string TestItemId = "af881f06-c3dd-4c74-94d6-58358fb1a8ea";
         const string AccessToken = "DUxLfvEGFS2CAuW0J1CZ1Q";
+        private string Endpoint = "https://connect.squareup.com/";
         public void SetHeaders(RestRequest request)
         {
             // Standard header for square connect api requests
@@ -25,8 +26,7 @@ namespace SendRecieveRequestsFromSquare.HttpRequestTests
         public void GetOneItem_Deserialize()
         {
             //Arrange
-            var getMessage = new GetAllMessage();
-            var client = new RestClient(getMessage.EndPoint);
+            var client = new RestClient(Endpoint);
 
             var request = new RestRequest("/v1/" + "me" + "/items/" + TestItemId, Method.GET);
             SetHeaders(request);
@@ -46,8 +46,7 @@ namespace SendRecieveRequestsFromSquare.HttpRequestTests
         public void GetOneItem_Execute()
         {
             //Arrange
-            var getMessage = new GetAllMessage();
-            var client = new RestClient(getMessage.EndPoint);
+            var client = new RestClient(Endpoint);
 
             var request = new RestRequest("/v1/" + "me" + "/items/" + TestItemId, Method.GET);
             SetHeaders(request);
