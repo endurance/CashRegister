@@ -1,4 +1,4 @@
-namespace CashRegister.Core.Models
+namespace CashRegister.Core.Models.Enums
 {
     public enum SelectionType
     {

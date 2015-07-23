@@ -1,9 +1,9 @@
 using System.ComponentModel;
 
-namespace CashRegister.Core.Models
+namespace CashRegister.Core.Models.Enums
 {
     public enum SupportedCurrency
     {
-        [Description("United States Dollar")] USD
+        [Description("US Dollars")] USD
     }
 }

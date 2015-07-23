@@ -1,10 +1,13 @@
 using System;
+using Newtonsoft.Json;
 
 namespace CashRegister.Core.Models
 {
     public class ItemImage
     {
-        public Guid Identifier { get; set; }
-        public Uri URL { get; set; }
+        [JsonProperty("id")]
+        public Guid Id { get; set; }
+        [JsonProperty("url")]
+        public Uri Uri { get; set; }
     }
 }
