@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CashRegister.Core.Models;
+using CashRegister.Infrastructure.Interfaces;
 using CashRegister.Infrastructure.SquareMessages;
 using RestSharp;
 using Utilities;
@@ -37,6 +38,13 @@ namespace CashRegister.Infrastructure.Repository
             var item = _restClient.Execute<Item>(request);
              
             return item.Data;
+        }
+
+        public int GetItemVariationQuantity(Guid itemId, Guid variationId)
+        {
+            var item = FindItem(itemId);
+            var itemVariations = item.Variations;
+            return itemVariations.Find(i => i.Id.Equals(variationId)).Ordinal;
         }
 
         public void DeleteItem(Guid id)

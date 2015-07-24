@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using CashRegister.Core.Models;
-using CashRegister.Infrastructure.SquareMessages;
+﻿using CashRegister.Core.Models;
 using NUnit.Framework;
 using RestSharp;
 using RestSharp.Deserializers;

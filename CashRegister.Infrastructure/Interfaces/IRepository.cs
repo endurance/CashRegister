@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CashRegister.Infrastructure.Repository
+namespace CashRegister.Infrastructure.Interfaces
 {
     public interface IRepository<TItem>
     {

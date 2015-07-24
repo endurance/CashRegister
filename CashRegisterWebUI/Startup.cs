@@ -1,7 +1,8 @@
-﻿using Microsoft.Owin;
+﻿using CashRegisterWebUI;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(CashRegisterWebUI.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 namespace CashRegisterWebUI
 {
     public partial class Startup
