@@ -11,10 +11,10 @@ namespace CashRegister.Infrastructure.Repository
     public class InMemoryRepository : IRepository<Item>
     {
         private readonly List<Item> _inventory;
-        SquareItemRepository repo = new SquareItemRepository();
+        private readonly SquareItemRepository _repo = new SquareItemRepository();
         public InMemoryRepository()
         {
-            _inventory = repo.GetAllItems();
+            _inventory = _repo.GetAllItems();
         }
         public Item FindItemBySku(string sku)
         {
