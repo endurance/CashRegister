@@ -17,7 +17,7 @@ namespace CashRegister.Core.Models
         [JsonProperty("pricing_type")]
         public PricingType Pricing_Type { get; set; }
         [JsonProperty("price_money")]
-        public Money ItemPrice { get; set; }
+        public Money Price_Money { get; set; }
         [JsonProperty("sku")]
         public string Sku { get; set; }
         [JsonProperty("track_inventory")]

@@ -1,43 +1,52 @@
-﻿using CashRegister.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Data;
+using CashRegister.Core.Models;
+using CashRegister.Infrastructure.Interfaces;
 using CashRegister.Infrastructure.Repository;
-using CashRegisterDesktopApp.Model;
+using Utilities;
 
 namespace CashRegisterDesktopApp.ViewModel
 {
-    internal class CheckoutRegisterViewModel
+    public class CheckoutRegisterViewModel
     {
-        public List<RegisterItem> RegisterItems { get; set; }
-        public SquareItemRepository ItemRepository { get; set; }
+        private static readonly object syncLock = new object();
+        public Scanner Scanner = new Scanner();
+
         public CheckoutRegisterViewModel()
         {
-            RegisterItems = new List<RegisterItem>();
-            ItemRepository = new SquareItemRepository();
+            CartItems = new ObservableCollection<CartItemViewModel>();
+            BindingOperations.EnableCollectionSynchronization(CartItems, syncLock);
+            ItemRepository = new InMemoryRepository();
+            Scanner.Scanned += OnScan;
+            
+
         }
 
-        public void AddToRegister(Item item, Guid variationId, int quantity)
+        public ObservableCollection<CartItemViewModel> CartItems { get; set; }
+        public IRepository<Item> ItemRepository { get; set; }
+        public string CurrentSku { get; set; }
+
+        public void OnScan()
         {
-            // int systemQuantity = ItemRepository.GetItemVariationQuantity(item_id, variationId);
+            AddToRegister("2");
+            // This thing is constantly scanning keyboard input.
+            // Don't perform any other tasks if the keys entered were under 6
+            if (Scanner.ScannedString.Length < 6) return;
+            CurrentSku = Scanner.ScannedString;
+            AddToRegister(CurrentSku);
         }
 
-        public void AddToRegister(Guid itemId, Guid variationId, int quantity)
+        public void AddToRegister(string sku)
         {
-            RegisterItem item = ItemRepository.FindItem(itemId) as RegisterItem;
-            var variation = item.Variations.Find(i => i.Id.Equals(variationId));
+            // Find the Item
 
-            if (variation.Ordinal < quantity) return;
-            CalculatePrice(itemId, variationId);
-            RegisterItems.Add(item);
+            var item = ItemRepository.FindItemBySku(CurrentSku);
+            // If no item found, leave
+            if (item == null) return;
+            // Create Item view model
+            var vm = new CartItemViewModel(item, CurrentSku) { Quantity = 1 };
+            // Add to the register
+            CartItems.Add(vm);
         }
-
-        public decimal CalculatePrice(Guid itemId, Guid variationId)
-        {
-            return 0m;
-        }
-        
     }
 }

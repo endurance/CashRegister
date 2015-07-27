@@ -1,22 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Windows.Documents;
-using CashRegister.Core.Models;
-using MahApps.Metro.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using CashRegisterDesktopApp.ViewModel;
+using CashRegisterDesktopApp.Views.SubViews;
+using Utilities;
 
 namespace CashRegisterDesktopApp.Views
 {
     /// <summary>
-    /// Interaction logic for RegisterView.xaml
+    ///     Interaction logic for RegisterView.xaml
     /// </summary>
     public partial class RegisterView
     {
-        public List<Item> Items { get; set; }
+        public CheckoutRegisterViewModel viewModel = new CheckoutRegisterViewModel();
+
         public RegisterView()
         {
-            Items = new List<Item>();
-            DataContext = this;
             InitializeComponent();
-            
+            DataContext = viewModel;
+            PreviewKeyDown += viewModel.Scanner.BeginScan;
         }
     }
 }

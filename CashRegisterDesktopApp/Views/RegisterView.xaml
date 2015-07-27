@@ -6,10 +6,41 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:CashRegisterDesktopApp.Views"
         mc:Ignorable="d"
-        Title="RegisterView" Height="300" Width="300">
-    <StackPanel>
-        <DataGrid ItemsSource="{Binding Items}">
-            
-        </DataGrid>
-    </StackPanel>
+        Title="RegisterView" Height="350" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Name="itemList_StackPanel"  Grid.Row="0">
+            <DataGrid Name="registerGrid" 
+                      Height="{Binding ElementName=itemList_StackPanel, Path=Height}" 
+                      ItemsSource="{Binding CartItems}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Item Name" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Quantity"  Binding="{Binding Quantity}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Price Per Item" Binding="{Binding Price}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Price X Quantity" Binding="{Binding CalculatedPrice}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <WrapPanel Grid.Column ="0">
+                <Label> Free Content</Label>
+            </WrapPanel>
+            <StackPanel Grid.Column="1" Orientation ="Horizontal">
+                <Label> Calculator goes here</Label>
+                <StackPanel>
+                    <TextBox Name="subTotal_TextBlock" Controls:TextBoxHelper.Watermark="SubTotal"/>
+                    <TextBox Name="taxes_TextBox" Controls:TextBoxHelper.Watermark="Taxes"/>
+                    <TextBox Name="totalPrice_textBox" Controls:TextBoxHelper.Watermark="Total"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Controls:MetroWindow>

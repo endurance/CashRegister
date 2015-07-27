@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CashRegister.Core.Models;
 using CashRegister.Infrastructure.Interfaces;
 using CashRegister.Infrastructure.SquareMessages;
@@ -40,11 +41,11 @@ namespace CashRegister.Infrastructure.Repository
             return item.Data;
         }
 
-        public int GetItemVariationQuantity(Guid itemId, Guid variationId)
+        public Item FindItemBySku(string sku)
         {
-            var item = FindItem(itemId);
-            var itemVariations = item.Variations;
-            return itemVariations.Find(i => i.Id.Equals(variationId)).Ordinal;
+            List<Item> items = GetAllItems();
+            return items.FirstOrDefault(item => item.Variations
+                                        .Any(variation => variation.Sku.Equals(sku)));
         }
 
         public void DeleteItem(Guid id)
