@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace CashRegisterWebUI.Controllers
 {
@@ -9,17 +10,27 @@ namespace CashRegisterWebUI.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [Authorize]
+        public ActionResult Inventory()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        [Authorize]
+        public ActionResult Register()
         {
-            ViewBag.Message = "Your contact page.";
+            return View();
+        }
 
+        public ActionResult CountInventory()
+        {
+            //TODO:Add the stuff to allow inventory counting
+            return View();
+        }
+
+        public ActionResult AddItem()
+        {
+            //TODO: add the stuff to add a new item to the inventory
             return View();
         }
     }
