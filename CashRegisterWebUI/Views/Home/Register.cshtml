@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-primary col-xs-4">
+            <div class="panel-heading">
+                <h3 class="panel-title">Calulate </h3>
+            </div>
+            <div class="panel-body">
+                <form name="Calc">
+                    <input class="col-sm-9" type="text" name="Input" size="16">
+                    <br />
+                    <table class="table table-striped table-hover ">
+                        <tbody class="col-sm-9">
+                            <tr>
+                                <td><input class="btn btn-primary" type="button" name="one" value="  1  " onclick=" Calc.Input.value += '1' "></td>
+                                <td><input class="btn btn-primary" type="button" name="two" value="  2  " onclick=" Calc.Input.value += '2' "></td>
+                                <td><input class="btn btn-primary" type="button" name="three" value="  3  " onclick=" Calc.Input.value += '3' "></td>
+                                <td><input class="btn btn-primary" type="button" name="plus" value="  +  " onclick=" Calc.Input.value += ' + ' "></td>
+                            </tr>
+                            <tr>
+                                <td><input class="btn btn-primary" type="button" name="four" value="  4  " onclick=" Calc.Input.value += '4' "></td>
+                                <td><input class="btn btn-primary" type="button" name="five" value="  5  " onclick=" Calc.Input.value += '5' "></td>
+                                <td><input class="btn btn-primary" type="button" name="six" value="  6  " onclick=" Calc.Input.value += '6' "></td>
+                                <td><input class="btn btn-primary" type="button" name="minus" value="  -  " onclick=" Calc.Input.value += ' - ' "></td>
+                            </tr>
+                            <tr>
+                                <td><input class="btn btn-primary" type="button" name="seven" value="  7  " onclick=" Calc.Input.value += '7' "></td>
+                                <td><input class="btn btn-primary" type="button" name="eight" value="  8  " onclick=" Calc.Input.value += '8' "></td>
+                                <td><input class="btn btn-primary" type="button" name="nine" value="  9  " onclick=" Calc.Input.value += '9' "></td>
+                                <td><input class="btn btn-primary" type="button" name="times" value="  x  " onclick=" Calc.Input.value += ' * ' "></td>
+                            </tr>
+                            <tr>
+                                <td><input class="btn btn-primary" type="button" name="empty1" value="       " onclick=" Calc.Input.value = '' "></td>
+                                <td><input class="btn btn-primary" type="button" name="zero" value="  0  " onclick=" Calc.Input.value += '0' "></td>
+                                <td><input class="btn btn-primary" type="button" name="empty2" value="        "></td>
+                                <td><input class="btn btn-primary" type="button" name="div" value="  /  " onclick=" Calc.Input.value += ' / ' "></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped table-hover ">
+                        <tbody class="col-md-9">
+                            <tr>
+                                <td><input class="btn btn-primary" type="button" name="clear" value=" Clear " onclick=" Calc.Input.value = '' "></td>
+                                <td><input class="btn btn-primary" type="button" name="DoIt" value=" Add " onclick=" Calc.Input.value = eval(Calc.Input.value) "></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-success col-xs-8">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Transaction </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+@*                        This is a TODO: Add badge to keep count of items in transaction*@
+@*                        <th>Item <span class="badge">3</span></th>*@
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <tr class="pull-right">
+                        <td class="form-group has-success"> <input class="form-control" id="totalTransActionCost" type="text" placeholder="Total Transaction Cost" disabled=""></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
