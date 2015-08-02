@@ -18,8 +18,6 @@ namespace CashRegisterDesktopApp.ViewModel
             BindingOperations.EnableCollectionSynchronization(CartItems, syncLock);
             ItemRepository = new InMemoryRepository();
             Scanner.Scanned += OnScan;
-            
-
         }
 
         public ObservableCollection<CartItemViewModel> CartItems { get; set; }
@@ -28,7 +26,6 @@ namespace CashRegisterDesktopApp.ViewModel
 
         public void OnScan()
         {
-            AddToRegister("2");
             // This thing is constantly scanning keyboard input.
             // Don't perform any other tasks if the keys entered were under 6
             if (Scanner.ScannedString.Length < 6) return;
@@ -39,7 +36,6 @@ namespace CashRegisterDesktopApp.ViewModel
         public void AddToRegister(string sku)
         {
             // Find the Item
-
             var item = ItemRepository.FindItemBySku(CurrentSku);
             // If no item found, leave
             if (item == null) return;

@@ -22,20 +22,11 @@ namespace CashRegisterDesktopApp.ViewModel
             get { return Item.Variations.Find(i => i.Sku.Equals(Sku)); }
         }
 
-        public string Name
-        {
-            get { return Item.Name + " " + SelectedUniqueItem.Name; }
-        }
+        public string Name => Item.Name + " " + SelectedUniqueItem.Name;
 
-        public string Price
-        {
-            get { return SelectedUniqueItem.Price_Money.Amount.AsCurrency(); }
-        }
+        public string Price => SelectedUniqueItem.Price_Money.Amount.AsCurrency();
 
-        public string CalculatedPrice
-        {
-            get { return (SelectedUniqueItem.Price_Money.Amount*Quantity).AsCurrency(); }
-        }
+        public string CalculatedPrice => (SelectedUniqueItem.Price_Money.Amount*Quantity).AsCurrency();
 
         public int Quantity
         {
