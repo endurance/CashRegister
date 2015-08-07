@@ -24,9 +24,9 @@ namespace CashRegisterDesktopApp.ViewModel
 
         public string Name => Item.Name + " " + SelectedUniqueItem.Name;
 
-        public string Price => SelectedUniqueItem.Price_Money.Amount.AsCurrency();
+        public decimal Price => SelectedUniqueItem.Price_Money.Price;
 
-        public string CalculatedPrice => (SelectedUniqueItem.Price_Money.Amount*Quantity).AsCurrency();
+        public decimal CalculatedPrice => (SelectedUniqueItem.Price_Money.Price*Quantity);
 
         public int Quantity
         {

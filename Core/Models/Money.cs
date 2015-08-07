@@ -10,5 +10,11 @@ namespace CashRegister.Core.Models
 
         [JsonProperty("amount")]
         public int Amount { get; set; }
+
+        public decimal Price
+        {
+            get { return Amount / 100; }
+            set { Amount = (int)(value * 100); }
+        }
     }
 }
