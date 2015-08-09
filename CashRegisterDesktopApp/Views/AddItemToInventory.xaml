@@ -1,0 +1,39 @@
+﻿<controls:MetroContentControl x:Class="CashRegisterDesktopApp.Views.AddItemToInventory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CashRegisterDesktopApp.Views"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             Background="WhiteSmoke"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal"  Grid.Row="0">
+            <Label>Scanned SKU:</Label>
+            <TextBox x:Name="skuScan_textBox" IsReadOnly="True" Text="{Binding CurrentScannedSku}" Margin="0,0,0,-0.6"/>
+        </StackPanel>
+
+        <StackPanel x:Name="inventory_StackPanel" Grid.Row="1" CanVerticallyScroll="True">
+            <DataGrid Name="inventoryGrid" 
+                      Height="{Binding ElementName=itemList_StackPanel, Path=Height}" 
+                      ItemsSource="{Binding InventoryItems}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Item Name" Binding="{Binding ItemName}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Item Variation"  Binding="{Binding ItemVariationName}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Inventory" Binding="{Binding Inventory}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Base Price" Binding="{Binding BasePrice}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="SKU" Binding="{Binding SKU}" IsReadOnly="True"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</controls:MetroContentControl>

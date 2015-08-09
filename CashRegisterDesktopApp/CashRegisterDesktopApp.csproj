@@ -94,12 +94,28 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModel\AddToInventoryViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CheckoutRegisterViewModel.cs" />
     <Compile Include="ViewModel\CartItemViewModel.cs" />
+    <Compile Include="ViewModel\InventoryItemViewModel.cs" />
+    <Compile Include="Views\AddItemToInventory.xaml.cs">
+      <DependentUpon>AddItemToInventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InventoryOperations.xaml.cs">
+      <DependentUpon>InventoryOperations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddItemToInventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventoryOperations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

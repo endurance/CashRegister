@@ -7,7 +7,7 @@ namespace CashRegister.Core.Models
     public class Fee
     {
         [JsonProperty("id")]
-        public Guid Identifier { get; set; }
+        public Guid Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("rate")]// String representation of a rate - "0.07" would = 7%
