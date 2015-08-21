@@ -2,7 +2,7 @@ using System;
 using CashRegister.Core.Models.Enums;
 using Newtonsoft.Json;
 
-namespace CashRegister.Core.Models
+namespace CashRegister.Infrastructure.Models
 {
     public class Fee
     {

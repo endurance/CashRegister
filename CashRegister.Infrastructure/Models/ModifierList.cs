@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using CashRegister.Core.Models;
 using CashRegister.Core.Models.Enums;
 using Newtonsoft.Json;
 
-namespace CashRegister.Core.Models
+namespace CashRegister.Infrastructure.Models
 {
     public class ModifierList
     {

@@ -2,6 +2,7 @@
 using System.Windows.Data;
 using CashRegister.Core.Models;
 using CashRegister.Infrastructure.Interfaces;
+using CashRegister.Infrastructure.Models;
 using CashRegister.Infrastructure.Repository;
 using Utilities;
 
@@ -21,7 +22,7 @@ namespace CashRegisterDesktopApp.ViewModel
         }
 
         public ObservableCollection<CartItemViewModel> CartItems { get; set; }
-        public IRepository<Item> ItemRepository { get; set; }
+        public IRepository<SquareItem> ItemRepository { get; set; }
         public string CurrentSku { get; set; }
 
         public void OnScan()

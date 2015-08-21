@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using CashRegister.Core.Models;
 using CashRegister.Infrastructure.Interfaces;
+using CashRegister.Infrastructure.Models;
 
 namespace CashRegister.Infrastructure.Repository
 {
-    public class InMemoryRepository : IRepository<Item>
+    public class InMemoryRepository : IRepository<SquareItem>
     {
-        private readonly List<Item> _inventory;
+        private readonly List<SquareItem> _inventory;
         private readonly SquareItemRepository _repo = new SquareItemRepository();
 
         public InMemoryRepository()
@@ -16,7 +17,7 @@ namespace CashRegister.Infrastructure.Repository
             _inventory = _repo.GetAllItems();
         }
 
-        public Item FindItemBySku(string sku)
+        public SquareItem FindItemBySku(string sku)
         {
             return _inventory.FirstOrDefault(item => item.Variations
                 .Any(variation => variation.Sku.Equals(sku)));
@@ -28,19 +29,19 @@ namespace CashRegister.Infrastructure.Repository
         ///     B. Add the item to the inventory if it is brand new OR
         ///     C. Add the appropriate variation if it already exists
         /// </summary>
-        /// <param name="item"></param>
-        public void AddItem(Item item)
+        /// <param name="squareItem"></param>
+        public void AddItem(SquareItem squareItem)
         {
             // Does the item already exist in the database / inventory?
-            var itemIsInInventory = _inventory.Any(i => i.Id == item.Id);
+            var itemIsInInventory = _inventory.Any(i => i.Id == squareItem.Id);
 
             if (itemIsInInventory)
-                throw new ArgumentException($"Item already exists in the inventory. Item: {item}");
+                throw new ArgumentException($"Item already exists in the inventory. Item: {squareItem}");
 
-            _inventory.Add(item);
+            _inventory.Add(squareItem);
         }
 
-        public void UpdateItem(Item item)
+        public void UpdateItem(SquareItem squareItem)
         {
             throw new NotImplementedException();
         }
@@ -50,12 +51,12 @@ namespace CashRegister.Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public Item FindItem(Guid id)
+        public SquareItem FindItem(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Item> GetAllItems()
+        public List<SquareItem> GetAllItems()
         {
             return _inventory;
         }
@@ -71,9 +72,9 @@ namespace CashRegister.Infrastructure.Repository
         ///     if the item in the data does not exist, immediately throw
         /// </summary>
         /// <param name="variationData"></param>
-        public void AddItemVariation(ItemVariation variationData)
+        public void AddItemVariation(SquareItemVariation variationData)
         {
-            var query = _inventory.FindAll(i => i.Id == variationData.Item_Id).ToList();
+            var query = _inventory.FindAll(i => i.Id == variationData.ItemId).ToList();
 
             if (query.Count == 0) throw new ArgumentException("Item does not exist. Variation could not be added");
 

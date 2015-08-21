@@ -43,31 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Enums\AdjustmentType.cs" />
-    <Compile Include="Models\Enums\CalculationPhaseType.cs" />
-    <Compile Include="Models\Enums\ItemColor.cs" />
-    <Compile Include="Models\Fee.cs" />
-    <Compile Include="Models\Enums\FeeType.cs" />
     <Compile Include="Models\Interfaces\IItem.cs" />
-    <Compile Include="Models\Enums\InclusionType.cs" />
-    <Compile Include="Models\Enums\InventoryAlertType.cs" />
-    <Compile Include="Models\ItemCategory.cs" />
-    <Compile Include="Models\ItemImage.cs" />
-    <Compile Include="Models\Enums\ItemType.cs" />
-    <Compile Include="Models\ItemList.cs" />
+    <Compile Include="Models\Interfaces\IItemVariation.cs" />
     <Compile Include="Models\ItemVariation.cs" />
-    <Compile Include="Models\Enums\ItemVisibility.cs" />
-    <Compile Include="Models\ModifierList.cs" />
-    <Compile Include="Models\ModifierOptions.cs" />
-    <Compile Include="Models\Money.cs" />
-    <Compile Include="Models\Enums\PricingType.cs" />
     <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\Enums\SelectionType.cs" />
-    <Compile Include="Models\Enums\SupportedCurrency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -45,10 +45,10 @@ namespace CashRegisterDesktopApp.ViewModel
 
         public decimal BasePrice
         {
-            get { return Variation.Price_Money.Price; }
+            get { return Variation.Price; }
             set
             {
-                Variation.Price_Money.Price = value;
+                Variation.Price = value;
                 OnPropertyChanged();
             }
         }

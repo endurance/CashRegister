@@ -1,5 +1,6 @@
 ﻿using System;
 using CashRegister.Core.Models;
+using CashRegister.Infrastructure.Models;
 using Utilities;
 
 namespace CashRegisterDesktopApp.ViewModel
@@ -8,13 +9,13 @@ namespace CashRegisterDesktopApp.ViewModel
     {
         private int _quantity = 0;
         
-        public CartItemViewModel(Item item, string sku)
+        public CartItemViewModel(SquareItem item, string sku)
         {
             Item = item;
             Sku = sku;
         }
 
-        private Item Item { get; }
+        private SquareItem Item { get; }
         public string Sku { get; set; }
         
         public ItemVariation SelectedUniqueItem
@@ -24,9 +25,9 @@ namespace CashRegisterDesktopApp.ViewModel
 
         public string Name => Item.Name + " " + SelectedUniqueItem.Name;
 
-        public decimal Price => SelectedUniqueItem.Price_Money.Price;
+        public decimal Price => SelectedUniqueItem.Price;
 
-        public decimal CalculatedPrice => (SelectedUniqueItem.Price_Money.Price*Quantity);
+        public decimal CalculatedPrice => (SelectedUniqueItem.Price*Quantity);
 
         public int Quantity
         {

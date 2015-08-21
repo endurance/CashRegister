@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using CashRegister.Core.Models;
 using CashRegister.Infrastructure.Interfaces;
+using CashRegister.Infrastructure.Models;
 using CashRegister.Infrastructure.SquareMessages;
 using RestSharp;
 using Utilities;
 
 namespace CashRegister.Infrastructure.Repository
 {
-    public class SquareItemRepository : IRepository<Item>
+    public class SquareItemRepository : IRepository<SquareItem>
     {
         private const string Access_Token = "DUxLfvEGFS2CAuW0J1CZ1Q";
         private const string EndPoint = "https://connect.squareup.com";
@@ -20,30 +21,30 @@ namespace CashRegister.Infrastructure.Repository
             _restClient = new RestClient(EndPoint);
         }
 
-        public void AddItem(Item item)
+        public void AddItem(SquareItem squareItem)
         {
             var request = getPopulatedRequest(new CreateItemMessage());
             _restClient.Post(request);
         }
 
-        public void UpdateItem(Item item)
+        public void UpdateItem(SquareItem squareItem)
         {
-            DeleteItem(item.Id);
-            AddItem(item);
+            DeleteItem(squareItem.Id);
+            AddItem(squareItem);
         }
 
-        public Item FindItem(Guid id)
+        public SquareItem FindItem(Guid id)
         {
             var msg = new RetrieveItemMessage {Item_Id = id};
             var request = getPopulatedRequest(msg);
-            var item = _restClient.Execute<Item>(request);
+            var item = _restClient.Execute<SquareItem>(request);
              
             return item.Data;
         }
 
-        public Item FindItemBySku(string sku)
+        public SquareItem FindItemBySku(string sku)
         {
-            List<Item> items = GetAllItems();
+            List<SquareItem> items = GetAllItems();
             return items.FirstOrDefault(item => item.Variations
                                         .Any(variation => variation.Sku.Equals(sku)));
         }
@@ -55,10 +56,10 @@ namespace CashRegister.Infrastructure.Repository
             _restClient.Delete(request);
         }
 
-        public List<Item> GetAllItems()
+        public List<SquareItem> GetAllItems()
         {
             var request = getPopulatedRequest(new ListItemsMessage());
-            return _restClient.Execute<List<Item>>(request).Data;
+            return _restClient.Execute<List<SquareItem>>(request).Data;
         }
 
         private RestRequest getPopulatedRequest(IMessage msg)
