@@ -8,8 +8,8 @@ namespace CashRegister.Infrastructure.Interfaces
         void AddItem(TItem item);
         void UpdateItem(TItem item);
         void DeleteItem(Guid id);
-        TItem FindItem(Guid id);
-        TItem FindItemBySku(string sku);
+        TItem GetItemById(Guid id);
+        TItem GetItemBySku(string sku);
         List<TItem> GetAllItems();
     }
 }

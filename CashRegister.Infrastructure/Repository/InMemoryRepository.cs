@@ -17,7 +17,7 @@ namespace CashRegister.Infrastructure.Repository
             _inventory = _repo.GetAllItems();
         }
 
-        public SquareItem FindItemBySku(string sku)
+        public SquareItem GetItemBySku(string sku)
         {
             return _inventory.FirstOrDefault(item => item.Variations
                 .Any(variation => variation.Sku.Equals(sku)));
@@ -51,7 +51,7 @@ namespace CashRegister.Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public SquareItem FindItem(Guid id)
+        public SquareItem GetItemById(Guid id)
         {
             throw new NotImplementedException();
         }

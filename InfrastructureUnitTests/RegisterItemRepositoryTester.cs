@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace InfrastructureUnitTests
 {
     [TestFixture]
-    public class RequestsToSquareTester
+    public class RegisterItemRepositoryTester
     {
         [Test]
         public void GetAllItemsTest()
@@ -17,7 +17,7 @@ namespace InfrastructureUnitTests
         [Test]
         public void FindOneItem()
         {
-            SquareItemRepository repo = new SquareItemRepository();
+            RegisterItemRepository repo = new RegisterItemRepository();
             Guid itemid = Guid.Parse("af881f06-c3dd-4c74-94d6-58358fb1a8ea");
 
             var item = repo.GetItemById(itemid);

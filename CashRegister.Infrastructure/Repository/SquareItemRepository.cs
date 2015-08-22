@@ -33,7 +33,7 @@ namespace CashRegister.Infrastructure.Repository
             AddItem(squareItem);
         }
 
-        public SquareItem FindItem(Guid id)
+        public SquareItem GetItemById(Guid id)
         {
             var msg = new RetrieveItemMessage {Item_Id = id};
             var request = getPopulatedRequest(msg);
@@ -42,7 +42,7 @@ namespace CashRegister.Infrastructure.Repository
             return item.Data;
         }
 
-        public SquareItem FindItemBySku(string sku)
+        public SquareItem GetItemBySku(string sku)
         {
             List<SquareItem> items = GetAllItems();
             return items.FirstOrDefault(item => item.Variations

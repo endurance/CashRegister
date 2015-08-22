@@ -37,7 +37,7 @@ namespace CashRegisterDesktopApp.ViewModel
         public void AddToRegister(string sku)
         {
             // Find the Item
-            var item = ItemRepository.FindItemBySku(CurrentSku);
+            var item = ItemRepository.GetItemBySku(CurrentSku);
             // If no item found, leave
             if (item == null) return;
             // Create Item view model
