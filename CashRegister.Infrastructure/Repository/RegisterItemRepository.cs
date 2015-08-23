@@ -8,6 +8,7 @@ using CashRegister.Core.Models;
 using CashRegister.Infrastructure.Interfaces;
 using Dapper;
 using Dapper.FastCrud;
+using Dapper.FastCrud.Mappings;
 
 namespace CashRegister.Infrastructure.Repository
 {
@@ -15,18 +16,32 @@ namespace CashRegister.Infrastructure.Repository
     {
         private string _connectString = "Data Source=CashRegister.sqlite;Version=3;";
 
+        private string _sqlServerConnectString =
+            @"Data Source=(localdb)\ProjectsV12;Initial Catalog=CashRegisterSqlExpress;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public RegisterItemRepository()
         {
-            ConnectionString = _connectString;
+            CreateRelationships();
+            ConnectionString = _sqlServerConnectString;
         }
         public RegisterItemRepository(string connectionString)
         {
             ConnectionString = connectionString;
         }
 
+        private void CreateRelationships()
+        {
+            OrmConfiguration.RegisterEntity<Item>()
+                .SetTableName(nameof(Item))
+                .SetProperty(nameof(Item.Id), PropertyMappingOptions.KeyProperty);
+            OrmConfiguration.RegisterEntity<ItemVariation>()
+                .SetTableName(nameof(ItemVariation))
+                .SetProperty(nameof(ItemVariation.Id), PropertyMappingOptions.KeyProperty);
+        }
+
+
         private DbConnection ConnectionInitialize()
         {
-            DbConnection connection = new SQLiteConnection(ConnectionString);
+            DbConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
             return connection;
         }
@@ -60,9 +75,18 @@ namespace CashRegister.Infrastructure.Repository
 
         public Item GetItemById(Guid id)
         {
+            string query = $"Select * from Item WHERE id = @Id; "
+                + $"SELECT * from ItemVariation WHERE = @Id";
+
             using (var connection = ConnectionInitialize())
+            using (var results = connection.QueryMultiple(query, new {id}))
             {
-                return connection.Get(new Item {Id = id});
+                var item = results.Read<Item>().SingleOrDefault();
+                var itemVariations = results.Read<ItemVariation>().ToList();
+
+                item?.Variations?.AddRange(itemVariations);
+
+                return item;
             }
         }
 

@@ -8,7 +8,7 @@ namespace CashRegister.Infrastructure.Models
     public class SquareItemVariation : ItemVariation
     {
         [JsonProperty("id")]
-        public override Guid VariationId { get; set; }
+        public override Guid Id { get; set; }
         [JsonProperty("name")]
         public override string Name { get; set; }
         [JsonProperty("item_id")]

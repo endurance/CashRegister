@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="538130da-d809-406d-a0c4-93a04119f835" ChangeDateTime="08/22/2015 22:38:22">
+    <Property Name="ElementName" Value="[dbo].[ItemVariation].[Ordinal]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ItemVariation]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6f5d7115-6b26-45c7-8a47-130e8d727e99" ChangeDateTime="08/22/2015 22:38:28">
+    <Property Name="ElementName" Value="[dbo].[ItemVariation].[Price]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ItemVariation]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Ordinal" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="410df799-0ec1-4bf1-9802-2bebd46ad6bf" ChangeDateTime="08/22/2015 22:38:30">
+    <Property Name="ElementName" Value="[dbo].[ItemVariation].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ItemVariation]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Sku" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="31dd3f33-767b-439f-930d-d4bb178f67e2" ChangeDateTime="08/22/2015 22:39:57">
+    <Property Name="ElementName" Value="[dbo].[Item].[Variations]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Item]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Variation" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2954d770-e204-4569-9d04-b2a053289530" ChangeDateTime="08/22/2015 22:51:38">
+    <Property Name="ElementName" Value="[dbo].[Item].[Variation]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Item]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Variations" />
+  </Operation>
+</Operations>

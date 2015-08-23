@@ -10,7 +10,7 @@ namespace InfrastructureUnitTests
         [Test]
         public void GetAllItemsTest()
         {
-            SquareItemRepository repo = new SquareItemRepository();
+            RegisterItemRepository repo = new RegisterItemRepository();
             var item = repo.GetAllItems();
             Assert.That(item.Count > 0);
         }
