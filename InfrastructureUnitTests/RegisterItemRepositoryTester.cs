@@ -24,5 +24,13 @@ namespace InfrastructureUnitTests
 
             Assert.That(item.Id == itemid);
         }
+        [Test]
+        public void FindItemBySku()
+        {
+            RegisterItemRepository repo = new RegisterItemRepository();
+            string sku = "728658041724";
+
+            var item = repo.GetItemBySku(sku);
+        }
     }
 }

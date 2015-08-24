@@ -9,7 +9,7 @@ namespace CashRegister.Core.Models
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
-        public virtual List<T> Variations { get; set; }
+        public virtual List<T> Variations { get; set; } = new List<T>();
     }
 
     public class Item : Item<ItemVariation>
