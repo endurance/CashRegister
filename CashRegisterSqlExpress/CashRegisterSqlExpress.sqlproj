@@ -58,10 +58,13 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="dbo" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\PostDeploy" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Item.sql" />
     <Build Include="dbo\ItemVariation.sql" />
+    <PostDeploy Include="Scripts\PostDeploy\TestInserts.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CashRegisterSqlExpress.refactorlog" />

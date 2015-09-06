@@ -33,7 +33,7 @@ namespace CashRegister.Infrastructure.Repository
         {
             using (var connection = ConnectionInitialize())
             {
-                connection.Insert(item);
+                //connection.Insert(item);
             }
         }
 
@@ -41,7 +41,7 @@ namespace CashRegister.Infrastructure.Repository
         {
             using (var connection = ConnectionInitialize())
             {
-                connection.Update(item);
+                //connection.Update(item);
             }
         }
 
@@ -91,11 +91,17 @@ namespace CashRegister.Infrastructure.Repository
 
         public List<Item> GetAllItems()
         {
-            string query = $"Select * from Item";
+            string query = $"Select * from Item it" +
+                           $"INNER JOIN ItemVariation iv on iv.itemId = it.id";
 
             using (var connection = ConnectionInitialize())
             {
-                return connection.GetList<Item>(query).ToList();
+                return connection.Query<Item, ItemVariation, Item>(query,
+                    (item, itemVariation) =>
+                    {
+                        item.Variations.Add(itemVariation);
+                        return item;
+                    }).ToList();
             }
         }
 
