@@ -9,16 +9,20 @@ using Dapper;
 
 namespace CashRegister.Infrastructure.Repository
 {
-    public class RegisterItemRepository : IRepository<Item>
+    public class RegisterItemRepository
     {
-        private readonly string _sqlServerConnectString =
-            @"Data Source=(localdb)\ProjectsV12;Initial Catalog=CashRegisterSqlExpress;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //private readonly string _sqlServerConnectionString =
+        //    @"Data Source=(localdb)\ProjectsV12;Initial Catalog=CashRegisterSqlExpress;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+        private readonly string _sqlServerConnectionString =
+            @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=CashRegisterInventory;Integrated Security=True;Pooling=False";
+
 
         private string _connectString = "Data Source=CashRegister.sqlite;Version=3;";
 
         public RegisterItemRepository()
         {
-            ConnectionString = _sqlServerConnectString;
+            ConnectionString = _sqlServerConnectionString;
         }
 
         public RegisterItemRepository(string connectionString)
@@ -91,7 +95,7 @@ namespace CashRegister.Infrastructure.Repository
 
         public List<Item> GetAllItems()
         {
-            string query = $"Select * from Item it" +
+            string query = $"Select * from Item it " +
                            $"INNER JOIN ItemVariation iv on iv.itemId = it.id";
 
             using (var connection = ConnectionInitialize())

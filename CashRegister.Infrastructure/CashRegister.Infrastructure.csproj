@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -81,6 +81,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.SQLite, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.98.1\lib\net45\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
@@ -100,8 +101,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContexts\Items.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Items.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\Mapping\Mapping.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IItemRepository.cs" />
     <Compile Include="Models\Enums\AdjustmentType.cs" />
     <Compile Include="Models\Enums\CalculationPhaseType.cs" />
     <Compile Include="Models\Enums\FeeType.cs" />
@@ -122,7 +129,13 @@
     <Compile Include="Models\Money.cs" />
     <Compile Include="Models\SquareItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\InMemoryRepository.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\DapperItemRepository.cs" />
+    <Compile Include="Repository\LinqToSqlItemRepository.cs" />
     <Compile Include="Repository\RegisterItemRepository.cs" />
     <Compile Include="Repository\SquareItemRepository.cs" />
     <Compile Include="SquareMessages\CreateItemMessage.cs" />
@@ -142,20 +155,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DataContexts\Items.dbml.layout">
+      <DependentUpon>Items.dbml</DependentUpon>
+    </None>
     <None Include="App.config" />
     <EmbeddedResource Include="CashRegister.sqlite">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="DataContexts\Items.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Items.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="db\CashRegisterInventory.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="db\CashRegisterInventory_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>CashRegisterInventory.mdf</DependentUpon>
-    </Content>
     <Content Include="TestInserts.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +187,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.98.1\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.98.1\build\net45\System.Data.SQLite.Core.targets')" />

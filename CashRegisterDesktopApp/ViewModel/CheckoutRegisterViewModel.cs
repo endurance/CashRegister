@@ -22,7 +22,7 @@ namespace CashRegisterDesktopApp.ViewModel
         }
 
         public ObservableCollection<CartItemViewModel> CartItems { get; set; }
-        public IRepository<SquareItem> ItemRepository { get; set; }
+        public IItemRepository<SquareItem> ItemRepository { get; set; }
         public string CurrentSku { get; set; }
 
         public void OnScan()

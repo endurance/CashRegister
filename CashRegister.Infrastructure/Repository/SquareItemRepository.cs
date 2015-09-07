@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CashRegister.Core.Models;
-using CashRegister.Infrastructure.Interfaces;
 using CashRegister.Infrastructure.Models;
 using CashRegister.Infrastructure.SquareMessages;
 using RestSharp;
@@ -10,7 +8,7 @@ using Utilities;
 
 namespace CashRegister.Infrastructure.Repository
 {
-    public class SquareItemRepository : IRepository<SquareItem>
+    public class SquareItemRepository
     {
         private const string Access_Token = "DUxLfvEGFS2CAuW0J1CZ1Q";
         private const string EndPoint = "https://connect.squareup.com";
@@ -38,15 +36,15 @@ namespace CashRegister.Infrastructure.Repository
             var msg = new RetrieveItemMessage {Item_Id = id};
             var request = getPopulatedRequest(msg);
             var item = _restClient.Execute<SquareItem>(request);
-             
+
             return item.Data;
         }
 
         public SquareItem GetItemBySku(string sku)
         {
-            List<SquareItem> items = GetAllItems();
+            var items = GetAllItems();
             return items.FirstOrDefault(item => item.Variations
-                                        .Any(variation => variation.Sku.Equals(sku)));
+                .Any(variation => variation.Sku.Equals(sku)));
         }
 
         public void DeleteItem(Guid id)
@@ -64,7 +62,10 @@ namespace CashRegister.Infrastructure.Repository
 
         private RestRequest getPopulatedRequest(IMessage msg)
         {
-            var request = new RestRequest(msg.Resource, msg.HttpType) {JsonSerializer = new RestSharpJsonNetSerializer()};
+            var request = new RestRequest(msg.Resource, msg.HttpType)
+            {
+                JsonSerializer = new RestSharpJsonNetSerializer()
+            };
             restRequestSetup(request);
             return request;
         }

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CashRegisterMVC.Models.ItemViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemData.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemData.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemData.Id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.ItemData.Id  }) |
+            @Html.ActionLink("Details", "ItemVariationDetails", new { id = item.ItemData.Id}) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ItemData.Id })
+        </td>
+    </tr>
+}
+
+</table>

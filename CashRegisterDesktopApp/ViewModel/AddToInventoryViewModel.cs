@@ -12,7 +12,7 @@ namespace CashRegisterDesktopApp.ViewModel
         private int _inventory;
         private string _itemName;
         private string _itemVariationName;
-        private IRepository<SquareItem> _repo;
+        private IItemRepository<SquareItem> _repo;
         private string _sku;
 
         public AddToInventoryViewModel()
@@ -20,7 +20,7 @@ namespace CashRegisterDesktopApp.ViewModel
             _repo = new InMemoryRepository();
         }
 
-        public AddToInventoryViewModel(IRepository<SquareItem> repo)
+        public AddToInventoryViewModel(IItemRepository<SquareItem> repo)
         {
             _repo = repo;
         }
