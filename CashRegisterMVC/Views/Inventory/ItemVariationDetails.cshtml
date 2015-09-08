@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CashRegisterMVC.Models.ItemVariationViewModel>
 
 @{
-    ViewBag.Title = Html.DisplayFor(modelItem => modelItem.First().CoreItemName);
+    ViewBag.Title = Html.DisplayFor(modelItem => modelItem.FirstOrDefault().CoreItemName);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

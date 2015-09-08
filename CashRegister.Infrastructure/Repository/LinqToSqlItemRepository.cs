@@ -1,34 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
+using AutoMapper;
 using CashRegister.Core.Models;
 using CashRegister.Infrastructure.DataContexts;
-using CashRegister.Infrastructure.DataContexts.Mapping;
 using CashRegister.Infrastructure.Interfaces;
 
 namespace CashRegister.Infrastructure.Repository
 {
     public class LinqToSqlItemRepository : IRepository
     {
+        public LinqToSqlItemRepository()
+        {
+            Mapper.CreateMap<Item, ItemDb>()
+                .ForMember(i => i.Id, opt=> opt.Ignore())
+                .ForMember(i => i.ItemVariationDbs, m => m.Ignore());
+            Mapper.CreateMap<ItemDb, Item>()
+                .ForMember(i => i.Variations, m => m.MapFrom(s => s.ItemVariationDbs));
+
+            Mapper.CreateMap<ItemVariation, ItemVariationDb>();
+            Mapper.CreateMap<ItemVariationDb, ItemVariation>();
+        }
+
         public string ConnectionString { get; set; }
 
-        public void AddItem(Item obj)
+        public void AddItem(Item itemModel)
         {
             using (var db = new ItemsDataContext(ConnectionString))
             {
-                var itemToHydrate = new ItemDb();
-                itemToHydrate.MapObject(obj);
+                var itemToHydrate = Mapper.Map<ItemDb>(itemModel);
+                itemToHydrate.Id = itemModel.Id;
                 db.ItemDbs.InsertOnSubmit(itemToHydrate);
                 db.SubmitChanges();
             }
         }
 
-        public void AddItemVariation(ItemVariation itemVariation)
+        public void AddItemVariation(ItemVariation itemVariationModel)
         {
             using (var db = new ItemsDataContext(ConnectionString))
             {
-                var itemToHydrate = new ItemVariationDb();
-                itemToHydrate.MapObject(itemVariation);
+                var itemToHydrate = Mapper.Map<ItemVariationDb>(itemVariationModel);
+                itemToHydrate.Id = itemVariationModel.Id;
                 db.ItemVariationDbs.InsertOnSubmit(itemToHydrate);
                 db.SubmitChanges();
             }
@@ -38,8 +51,9 @@ namespace CashRegister.Infrastructure.Repository
         {
             using (var db = new ItemsDataContext(ConnectionString))
             {
-                var findItem = db.ItemDbs.Where(i => i.Id == item.Id);
-                findItem.MapObject(item);
+                var itemToUpdate = db.ItemDbs.FirstOrDefault(itemDb => itemDb.Id == item.Id);
+                if (itemToUpdate == null) return;
+                Mapper.Map(item, itemToUpdate);
                 db.SubmitChanges();
             }
         }
@@ -48,40 +62,46 @@ namespace CashRegister.Infrastructure.Repository
         {
             using (var db = new ItemsDataContext(ConnectionString))
             {
-                var findItem = db.ItemDbs.Where(i => i.Id == itemVariation.Id);
-                findItem.MapObject(itemVariation);
+                var itemToUpdate = db.ItemVariationDbs.FirstOrDefault(itemDb => itemDb.Id == itemVariation.Id);
+                if (itemToUpdate == null) return;
+                Mapper.Map(itemVariation, itemToUpdate);
                 db.SubmitChanges();
             }
         }
 
         public void DeleteItem(Item item)
         {
-            throw new NotImplementedException();
+            using (var db = new ItemsDataContext(ConnectionString))
+            {
+                var itemToDelete = db.ItemDbs.FirstOrDefault(itemDb => itemDb.Id == item.Id);
+                if (itemToDelete == null) return;
+                foreach (var variation in itemToDelete.ItemVariationDbs)
+                {
+                    db.ItemVariationDbs.DeleteOnSubmit(variation);
+                }
+                db.ItemDbs.DeleteOnSubmit(itemToDelete);
+
+                db.SubmitChanges();
+            }
         }
 
         public void DeleteItemVariation(Item itemVariation)
         {
-            throw new NotImplementedException();
+            using (var db = new ItemsDataContext(ConnectionString))
+            {
+                var itemToDelete = db.ItemVariationDbs.FirstOrDefault(itemVariationDbs => itemVariationDbs.Id == itemVariation.Id);
+                if (itemToDelete == null) return;
+                db.ItemVariationDbs.DeleteOnSubmit(itemToDelete);
+                db.SubmitChanges();
+            }
         }
 
         public Item GetItem(Guid id)
         {
             using (var db = new ItemsDataContext(ConnectionString))
             {
-                var itemModel = new Item();
-                var variationModel = new ItemVariation();
-
                 var dbItem = db.ItemDbs.SingleOrDefault(i => i.Id == id);
-                if (dbItem == null) return null;
-
-                itemModel.MapObject(dbItem);
-                foreach (var variation in dbItem.ItemVariationDbs)
-                {
-                    variationModel.MapObject(variation);
-                    itemModel.Variations.Add(variationModel);
-                }
-
-                return itemModel;
+                return dbItem == null ? null : Mapper.Map<Item>(dbItem);
             }
         }
 
@@ -89,14 +109,8 @@ namespace CashRegister.Infrastructure.Repository
         {
             using (var db = new ItemsDataContext(ConnectionString))
             {
-                var query = db.ItemVariationDbs.SingleOrDefault(i => i.Id == variation.Id);
-                if (query == null) return null;
-
-                var itemDb = db.ItemVariationDbs.SingleOrDefault(i => i.Id == variation.Id);
-
-                var itemModel = new Item();
-                itemModel.MapObject(itemDb);
-                return itemModel;
+                var dbItemVariation = db.ItemVariationDbs.SingleOrDefault(i => i.Id == variation.Id);
+                return dbItemVariation == null ? null : Mapper.Map<Item>(dbItemVariation.ItemDb);
             }
         }
 
@@ -107,13 +121,9 @@ namespace CashRegister.Infrastructure.Repository
                 var itemVariationDb = db.ItemVariationDbs.SingleOrDefault(i => i.Id == id);
                 if (itemVariationDb == null) return null;
 
-                var itemModel = new Item();
-                var variationModel = new ItemVariation();
-                itemModel.MapObject(itemVariationDb.ItemDb);
-                variationModel.MapObject(itemVariationDb);
-                itemModel.Variations.Add(variationModel);
+                var itemToHydrate = HydratedItemWithSingleVariation(itemVariationDb);
 
-                return itemModel;
+                return itemToHydrate;
             }
         }
 
@@ -124,13 +134,9 @@ namespace CashRegister.Infrastructure.Repository
                 var itemVariationDb = db.ItemVariationDbs.SingleOrDefault(i => i.Sku == sku);
                 if (itemVariationDb == null) return null;
 
-                var itemModel = new Item();
-                var variationModel = new ItemVariation();
-                itemModel.MapObject(itemVariationDb.ItemDb);
-                variationModel.MapObject(itemVariationDb);
-                itemModel.Variations.Add(variationModel);
+                var itemToHydrate = HydratedItemWithSingleVariation(itemVariationDb);
 
-                return itemModel;
+                return itemToHydrate;
             }
         }
 
@@ -138,28 +144,25 @@ namespace CashRegister.Infrastructure.Repository
         {
             using (var db = new ItemsDataContext(ConnectionString))
             {
-                var items = new List<Item>();
-                var itemDbs = db.ItemDbs.ToList();
-                var itemModel = new Item();
-                var variationModel = new ItemVariation();
-                foreach (var dbItem in itemDbs)
-                {
-                    itemModel.MapObject(dbItem);
-                    foreach (var dbVariation in dbItem.ItemVariationDbs)
-                    {
-                        variationModel.MapObject(dbVariation);
-                        itemModel.Variations.Add(variationModel);
-                    }
-                    items.Add(itemModel);
-                }
+                var query = from item in db.ItemDbs
+                    select Mapper.Map<Item>(item);
 
-                return items;
+                return query.ToList();
             }
         }
 
         public List<ItemVariation> GetAllItemVariations()
         {
             throw new NotImplementedException();
+        }
+
+        private static Item HydratedItemWithSingleVariation(ItemVariationDb itemVariationDb)
+        {
+            var itemToHydrate = Mapper.Map<Item>(itemVariationDb.ItemDb);
+            var itemVariationToHydrate = Mapper.Map<ItemVariation>(itemVariationDb);
+            itemToHydrate.Variations.Clear();
+            itemToHydrate.Variations.Add(itemVariationToHydrate);
+            return itemToHydrate;
         }
     }
 }

@@ -13,8 +13,9 @@ namespace CashRegisterMVC.Models
 
         public Item ItemData { get; set; }
         public Guid Id => ItemData.Id;
-        public string Name => ItemData.Name;
-        public string Description => ItemData.Description;
+        public string CompanyName => ItemData.CompanyName.Trim();
+        public string Name => ItemData.Name.Trim();
+        public string Description => ItemData.Description.Trim();
         public int TotalQuantity
         {
             get { return ItemData.Variations.Sum(i => i.Ordinal); }

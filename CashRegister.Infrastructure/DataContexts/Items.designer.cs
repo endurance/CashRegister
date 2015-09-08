@@ -30,12 +30,12 @@ namespace CashRegister.Infrastructure.DataContexts
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertItemDb(ItemDb instance);
-    partial void UpdateItemDb(ItemDb instance);
-    partial void DeleteItemDb(ItemDb instance);
     partial void InsertItemVariationDb(ItemVariationDb instance);
     partial void UpdateItemVariationDb(ItemVariationDb instance);
     partial void DeleteItemVariationDb(ItemVariationDb instance);
+    partial void InsertItemDb(ItemDb instance);
+    partial void UpdateItemDb(ItemDb instance);
+    partial void DeleteItemDb(ItemDb instance);
     #endregion
 		
 		public ItemsDataContext() : 
@@ -68,14 +68,6 @@ namespace CashRegister.Infrastructure.DataContexts
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<ItemDb> ItemDbs
-		{
-			get
-			{
-				return this.GetTable<ItemDb>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ItemVariationDb> ItemVariationDbs
 		{
 			get
@@ -83,143 +75,13 @@ namespace CashRegister.Infrastructure.DataContexts
 				return this.GetTable<ItemVariationDb>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Item")]
-	public partial class ItemDb : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id;
-		
-		private string _Name;
-		
-		private string _Description;
-		
-		private EntitySet<ItemVariationDb> _ItemVariations;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(System.Guid value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    #endregion
-		
-		public ItemDb()
-		{
-			this._ItemVariations = new EntitySet<ItemVariationDb>(new Action<ItemVariationDb>(this.attach_ItemVariations), new Action<ItemVariationDb>(this.detach_ItemVariations));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id
+		public System.Data.Linq.Table<ItemDb> ItemDbs
 		{
 			get
 			{
-				return this._Id;
+				return this.GetTable<ItemDb>();
 			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NChar(500) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NChar(500) NOT NULL", CanBeNull=false)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ItemDb_ItemVariationDb", Storage="_ItemVariations", ThisKey="Id", OtherKey="ItemId")]
-		public EntitySet<ItemVariationDb> ItemVariationDbs
-		{
-			get
-			{
-				return this._ItemVariations;
-			}
-			set
-			{
-				this._ItemVariations.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ItemVariations(ItemVariationDb entity)
-		{
-			this.SendPropertyChanging();
-			entity.ItemDb = this;
-		}
-		
-		private void detach_ItemVariations(ItemVariationDb entity)
-		{
-			this.SendPropertyChanging();
-			entity.ItemDb = null;
 		}
 	}
 	
@@ -241,7 +103,7 @@ namespace CashRegister.Infrastructure.DataContexts
 		
 		private System.Guid _ItemId;
 		
-		private EntityRef<ItemDb> _Item;
+		private EntityRef<ItemDb> _ItemDb;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -263,7 +125,7 @@ namespace CashRegister.Infrastructure.DataContexts
 		
 		public ItemVariationDb()
 		{
-			this._Item = default(EntityRef<ItemDb>);
+			this._ItemDb = default(EntityRef<ItemDb>);
 			OnCreated();
 		}
 		
@@ -378,7 +240,7 @@ namespace CashRegister.Infrastructure.DataContexts
 			{
 				if ((this._ItemId != value))
 				{
-					if (this._Item.HasLoadedOrAssignedValue)
+					if (this._ItemDb.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -391,26 +253,26 @@ namespace CashRegister.Infrastructure.DataContexts
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ItemDb_ItemVariationDb", Storage="_Item", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemVariationDb", Storage="_ItemDb", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
 		public ItemDb ItemDb
 		{
 			get
 			{
-				return this._Item.Entity;
+				return this._ItemDb.Entity;
 			}
 			set
 			{
-				ItemDb previousValue = this._Item.Entity;
+				ItemDb previousValue = this._ItemDb.Entity;
 				if (((previousValue != value) 
-							|| (this._Item.HasLoadedOrAssignedValue == false)))
+							|| (this._ItemDb.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Item.Entity = null;
+						this._ItemDb.Entity = null;
 						previousValue.ItemVariationDbs.Remove(this);
 					}
-					this._Item.Entity = value;
+					this._ItemDb.Entity = value;
 					if ((value != null))
 					{
 						value.ItemVariationDbs.Add(this);
@@ -443,6 +305,168 @@ namespace CashRegister.Infrastructure.DataContexts
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Item")]
+	public partial class ItemDb : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private string _CompanyName;
+		
+		private EntitySet<ItemVariationDb> _ItemVariationDbs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnCompanyNameChanging(string value);
+    partial void OnCompanyNameChanged();
+    #endregion
+		
+		public ItemDb()
+		{
+			this._ItemVariationDbs = new EntitySet<ItemVariationDb>(new Action<ItemVariationDb>(this.attach_ItemVariationDbs), new Action<ItemVariationDb>(this.detach_ItemVariationDbs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NChar(500) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NChar(500) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="NChar(500)")]
+		public string CompanyName
+		{
+			get
+			{
+				return this._CompanyName;
+			}
+			set
+			{
+				if ((this._CompanyName != value))
+				{
+					this.OnCompanyNameChanging(value);
+					this.SendPropertyChanging();
+					this._CompanyName = value;
+					this.SendPropertyChanged("CompanyName");
+					this.OnCompanyNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemVariationDb", Storage="_ItemVariationDbs", ThisKey="Id", OtherKey="ItemId")]
+		public EntitySet<ItemVariationDb> ItemVariationDbs
+		{
+			get
+			{
+				return this._ItemVariationDbs;
+			}
+			set
+			{
+				this._ItemVariationDbs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ItemVariationDbs(ItemVariationDb entity)
+		{
+			this.SendPropertyChanging();
+			entity.ItemDb = this;
+		}
+		
+		private void detach_ItemVariationDbs(ItemVariationDb entity)
+		{
+			this.SendPropertyChanging();
+			entity.ItemDb = null;
 		}
 	}
 }

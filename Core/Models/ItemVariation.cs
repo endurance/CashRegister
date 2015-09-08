@@ -5,7 +5,7 @@ namespace CashRegister.Core.Models
 {
     public class ItemVariation : IItemVariation
     {
-        public virtual Guid Id { get; set; }
+        public virtual Guid Id { get; set; } = Guid.NewGuid();
         public virtual Guid ItemId { get; set; }
         public virtual string Name { get; set; }
         public virtual int Ordinal { get; set; }

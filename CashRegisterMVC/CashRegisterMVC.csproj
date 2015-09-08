@@ -164,6 +164,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Inventory\CreateAnItem.cshtml" />
+    <Content Include="Views\Inventory\EditAnItem.cshtml" />
     <None Include="Views\Inventory\ItemVariationDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
