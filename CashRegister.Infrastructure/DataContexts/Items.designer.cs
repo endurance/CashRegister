@@ -36,6 +36,9 @@ namespace CashRegister.Infrastructure.DataContexts
     partial void InsertItemDb(ItemDb instance);
     partial void UpdateItemDb(ItemDb instance);
     partial void DeleteItemDb(ItemDb instance);
+    partial void InsertSupplierDb(SupplierDb instance);
+    partial void UpdateSupplierDb(SupplierDb instance);
+    partial void DeleteSupplierDb(SupplierDb instance);
     #endregion
 		
 		public ItemsDataContext() : 
@@ -81,6 +84,14 @@ namespace CashRegister.Infrastructure.DataContexts
 			get
 			{
 				return this.GetTable<ItemDb>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SupplierDb> SupplierDbs
+		{
+			get
+			{
+				return this.GetTable<SupplierDb>();
 			}
 		}
 	}
@@ -253,7 +264,7 @@ namespace CashRegister.Infrastructure.DataContexts
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemVariationDb", Storage="_ItemDb", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ItemDb_ItemVariationDb", Storage="_ItemDb", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
 		public ItemDb ItemDb
 		{
 			get
@@ -424,7 +435,7 @@ namespace CashRegister.Infrastructure.DataContexts
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemVariationDb", Storage="_ItemVariationDbs", ThisKey="Id", OtherKey="ItemId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ItemDb_ItemVariationDb", Storage="_ItemVariationDbs", ThisKey="Id", OtherKey="ItemId")]
 		public EntitySet<ItemVariationDb> ItemVariationDbs
 		{
 			get
@@ -467,6 +478,212 @@ namespace CashRegister.Infrastructure.DataContexts
 		{
 			this.SendPropertyChanging();
 			entity.ItemDb = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Supplier")]
+	public partial class SupplierDb : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private string _Address1;
+		
+		private string _Address2;
+		
+		private string _MainPhoneNumber;
+		
+		private string _AlternatePhoneNumber;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnAddress1Changing(string value);
+    partial void OnAddress1Changed();
+    partial void OnAddress2Changing(string value);
+    partial void OnAddress2Changed();
+    partial void OnMainPhoneNumberChanging(string value);
+    partial void OnMainPhoneNumberChanged();
+    partial void OnAlternatePhoneNumberChanging(string value);
+    partial void OnAlternatePhoneNumberChanged();
+    #endregion
+		
+		public SupplierDb()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(200)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address1", DbType="VarChar(200)")]
+		public string Address1
+		{
+			get
+			{
+				return this._Address1;
+			}
+			set
+			{
+				if ((this._Address1 != value))
+				{
+					this.OnAddress1Changing(value);
+					this.SendPropertyChanging();
+					this._Address1 = value;
+					this.SendPropertyChanged("Address1");
+					this.OnAddress1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address2", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string Address2
+		{
+			get
+			{
+				return this._Address2;
+			}
+			set
+			{
+				if ((this._Address2 != value))
+				{
+					this.OnAddress2Changing(value);
+					this.SendPropertyChanging();
+					this._Address2 = value;
+					this.SendPropertyChanged("Address2");
+					this.OnAddress2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainPhoneNumber", DbType="VarChar(25)")]
+		public string MainPhoneNumber
+		{
+			get
+			{
+				return this._MainPhoneNumber;
+			}
+			set
+			{
+				if ((this._MainPhoneNumber != value))
+				{
+					this.OnMainPhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._MainPhoneNumber = value;
+					this.SendPropertyChanged("MainPhoneNumber");
+					this.OnMainPhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlternatePhoneNumber", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
+		public string AlternatePhoneNumber
+		{
+			get
+			{
+				return this._AlternatePhoneNumber;
+			}
+			set
+			{
+				if ((this._AlternatePhoneNumber != value))
+				{
+					this.OnAlternatePhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._AlternatePhoneNumber = value;
+					this.SendPropertyChanged("AlternatePhoneNumber");
+					this.OnAlternatePhoneNumberChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

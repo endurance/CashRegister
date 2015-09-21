@@ -6,5 +6,6 @@
     [Ordinal] INT NOT NULL, 
     [Price] MONEY NOT NULL, 
     [ItemId] UNIQUEIDENTIFIER NOT NULL, 
+    [SupplierId] UNIQUEIDENTIFIER NULL, 
     CONSTRAINT [FK_ItemVariation_To_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item]([Id]) 
 )

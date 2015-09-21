@@ -15,11 +15,17 @@
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(4.375 : 4.91429768880208); (5.125 : 4.91429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/ItemsDataContext/ItemDb/Item_ItemVariationDb" />
+      <AssociationMoniker Name="/ItemsDataContext/ItemDb/ItemDb_ItemVariationDb" />
       <nodes>
         <classShapeMoniker Id="b8f6b5df-7406-4141-8a23-ab4b9a8ea3fd" />
         <classShapeMoniker Id="10624ba7-34a0-43fc-856c-abd075160117" />
       </nodes>
     </associationConnector>
+    <classShape Id="cb199e1d-fcf2-42c0-8be5-f311c0361071" absoluteBounds="3.375, 1.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ItemsDataContext/SupplierDb" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9f04fc1e-6e08-4297-b55f-b00a83ad9e98" absoluteBounds="3.39, 1.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

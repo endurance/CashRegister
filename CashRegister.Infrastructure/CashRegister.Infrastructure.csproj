@@ -63,8 +63,8 @@
       <HintPath>..\packages\Dapper.Mapper.1.13\lib\net45\Dapper.Mapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Dapper.SimpleCRUD, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.SimpleCRUD.1.9.0\lib\net45\Dapper.SimpleCRUD.dll</HintPath>
+    <Reference Include="Dapper.SimpleCRUD, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.SimpleCRUD.1.9.1\lib\net45\Dapper.SimpleCRUD.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -139,9 +139,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Repository\DapperItemRepository.cs" />
+    <Compile Include="Repository\ItemRepository.cs" />
+    <Compile Include="Repository\ItemVariationRepository.cs" />
     <Compile Include="Repository\LinqToSqlItemRepository.cs" />
     <Compile Include="Repository\RegisterItemRepository.cs" />
     <Compile Include="Repository\SquareItemRepository.cs" />
+    <Compile Include="Repository\SupplierRepository.cs" />
     <Compile Include="SquareMessages\CreateItemMessage.cs" />
     <Compile Include="SquareMessages\DeleteItemMessage.cs" />
     <Compile Include="SquareMessages\ListItemsMessage.cs" />

@@ -8,7 +8,7 @@
       <Column Name="Ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="ItemId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="Item_ItemVariationDb" Member="ItemDb" ThisKey="ItemId" OtherKey="Id" Type="ItemDb" IsForeignKey="true" />
+      <Association Name="ItemDb_ItemVariationDb" Member="ItemDb" ThisKey="ItemId" OtherKey="Id" Type="ItemDb" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Item" Member="ItemDbs">
@@ -17,7 +17,18 @@
       <Column Name="Name" Type="System.String" DbType="NChar(500) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NChar(500) NOT NULL" CanBeNull="false" />
       <Column Name="CompanyName" Type="System.String" DbType="NChar(500)" CanBeNull="true" />
-      <Association Name="Item_ItemVariationDb" Member="ItemVariationDbs" ThisKey="Id" OtherKey="ItemId" Type="ItemVariationDb" />
+      <Association Name="ItemDb_ItemVariationDb" Member="ItemVariationDbs" ThisKey="Id" OtherKey="ItemId" Type="ItemVariationDb" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Supplier" Member="SupplierDbs">
+    <Type Name="SupplierDb">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="MainPhoneNumber" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="AlternatePhoneNumber" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

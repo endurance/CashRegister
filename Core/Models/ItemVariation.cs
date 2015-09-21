@@ -1,15 +1,16 @@
 using System;
-using CashRegister.Core.Models.Interfaces;
+using System.Collections.Generic;
 
 namespace CashRegister.Core.Models
 {
-    public class ItemVariation : IItemVariation
+    public class ItemVariation
     {
-        public virtual Guid Id { get; set; } = Guid.NewGuid();
-        public virtual Guid ItemId { get; set; }
-        public virtual string Name { get; set; }
-        public virtual int Ordinal { get; set; }
-        public virtual decimal Price { get; set; }
-        public virtual string Sku { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid ItemId { get; set; }
+        public string Name { get; set; }
+        public int Ordinal { get; set; }
+        public decimal Price { get; set; }
+        public string Sku { get; set; }
+        public List<Supplier> Suppliers { get; set; } = new List<Supplier>();
     }
 }

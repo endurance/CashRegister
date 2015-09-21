@@ -13,7 +13,6 @@ namespace CashRegister.Infrastructure.Interfaces
         TItem GetItemBySku(string sku);
         List<TItem> GetAllItems();
     }
-
     public interface IRepository
     {
         void AddItem(Item obj);
