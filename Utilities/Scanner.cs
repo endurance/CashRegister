@@ -1,5 +1,4 @@
-﻿using System.Runtime.Remoting.Messaging;
-using System.Text;
+﻿using System.Text;
 using System.Windows.Input;
 
 namespace Utilities
@@ -10,9 +9,7 @@ namespace Utilities
     {
         private readonly StringBuilder _scanData = new StringBuilder();
         private readonly KeyConverter _scanKeyConverter = new KeyConverter();
-
         public string ScannedString => _scanData.ToString();
-
         public event OnScannedHandler Scanned;
 
         public void BeginScan(object sender, KeyEventArgs e)
@@ -22,18 +19,15 @@ namespace Utilities
                 RaiseScannedEvent();
                 _scanData.Clear();
             }
-            else if( !isIgnorableKey(e.Key) )
+            else if (!isIgnorableKey(e.Key))
             {
                 _scanData.Append(_scanKeyConverter.ConvertToString(e.Key));
             }
         }
 
         private static bool isIgnorableKey(Key key) => isKeyCtrl(key) || isKeyShift(key);
-
         private static bool isKeyShift(Key key) => key == Key.LeftShift || key == Key.RightShift;
-
         private static bool isKeyCtrl(Key key) => key == Key.LeftCtrl || key == Key.RightCtrl;
-
-        private void RaiseScannedEvent() => Scanned?.Invoke(); 
+        private void RaiseScannedEvent() => Scanned?.Invoke();
     }
 }

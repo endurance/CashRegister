@@ -1,24 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using CashRegister.Core.Models;
-using CashRegister.Infrastructure.Interfaces;
-using CashRegister.Infrastructure.Repository;
 using CashRegisterMVC.Models;
+using Services;
 
 namespace CashRegisterMVC.Controllers
 {
     public class InventoryController : Controller
     {
-        readonly IRepository _itemRepository = new LinqToSqlItemRepository() { ConnectionString = connectionString };
-        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["InventoryDb"].ConnectionString;
+        private static readonly string connectionString =
+            ConfigurationManager.ConnectionStrings["InventoryDb"].ConnectionString;
+
+        //readonly IRepository _itemRepository = new LinqToSqlItemRepository() { ConnectionString = connectionString };
+        private readonly StoreItemService service = new StoreItemService(connectionString);
         // GET: Checkout
         public ActionResult Index()
         {
-            var items = _itemRepository.GetAllItems();
+            var items = service.GetAllItems();
             var itemViewModels = items.Select(i => new ItemViewModel(i)).ToList();
             return View(itemViewModels);
         }
@@ -26,9 +26,12 @@ namespace CashRegisterMVC.Controllers
         // GET: Checkout/Details/5
         public ActionResult ItemVariationDetails(Guid id)
         {
-            var itemModel = _itemRepository.GetItem(id);
-            var itemVariationViewModels = itemModel.Variations.Select(i => new ItemVariationViewModel(itemModel, i)).ToList();
-            return View(itemVariationViewModels);
+
+
+            //var itemModel = service.GetItem(id);
+            //var itemVariationViewModels =
+            //    itemModel.Variations.Select(i => new ItemVariationViewModel(itemModel, i)).ToList();
+            //return View(itemVariationViewModels);
         }
 
         // GET: Checkout/Create
@@ -44,7 +47,7 @@ namespace CashRegisterMVC.Controllers
             try
             {
                 var props = typeof (Item).GetProperties();
-                Item itemToInsert = new Item();
+                var itemToInsert = new Item();
 
                 var keysThatMatch =
                     from key in collection.AllKeys
@@ -53,7 +56,7 @@ namespace CashRegisterMVC.Controllers
 
                 foreach (var key in keysThatMatch)
                 {
-                    typeof(Item).GetProperty(key).SetValue(itemToInsert, collection[key]);
+                    typeof (Item).GetProperty(key).SetValue(itemToInsert, collection[key]);
                 }
 
                 _itemRepository.AddItem(itemToInsert);
@@ -69,7 +72,7 @@ namespace CashRegisterMVC.Controllers
         public ActionResult EditAnItem(Guid id)
         {
             var item = _itemRepository.GetItem(id);
-            ItemViewModel itemViewModel = new ItemViewModel(item);
+            var itemViewModel = new ItemViewModel(item);
             return View(itemViewModel);
         }
 
@@ -79,18 +82,18 @@ namespace CashRegisterMVC.Controllers
         {
             try
             {
-                var props = typeof(Item).GetProperties();
+                var props = typeof (Item).GetProperties();
                 var itemToUpdate = _itemRepository.GetItem(id);
 
                 var keysThatMatch =
                     from key in collection.AllKeys
                     join prop in props on key equals prop.Name
-                    where !prop.Name.Contains("Id") 
+                    where !prop.Name.Contains("Id")
                     select key;
 
                 foreach (var key in keysThatMatch)
                 {
-                    typeof(Item).GetProperty(key).SetValue(itemToUpdate, collection[key]);
+                    typeof (Item).GetProperty(key).SetValue(itemToUpdate, collection[key]);
                 }
 
                 _itemRepository.UpdateItem(itemToUpdate);

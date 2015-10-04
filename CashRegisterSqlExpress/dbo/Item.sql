@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [dbo].[Item]
 (
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [Name] NCHAR(500) NOT NULL, 
-    [Description] NCHAR(500) NOT NULL, 
-    [CompanyName] NCHAR(500) NULL 
+	[ItemId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+	[ItemCompanyName] NCHAR(500) NULL, 
+    [ItemBrandName] NCHAR(500) NOT NULL, 
+    [ItemDescription] NCHAR(500) NOT NULL
+    
 )

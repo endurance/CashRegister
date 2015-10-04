@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [dbo].[ItemVariation]
 (
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [Sku] VARCHAR(50) NOT NULL, 
-    [Name] VARCHAR(50) NOT NULL, 
-    [Ordinal] INT NOT NULL, 
-    [Price] MONEY NOT NULL, 
-    [ItemId] UNIQUEIDENTIFIER NOT NULL, 
-    [SupplierId] UNIQUEIDENTIFIER NULL, 
-    CONSTRAINT [FK_ItemVariation_To_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item]([Id]) 
+	[VariationId]		UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+	[ItemId]			UNIQUEIDENTIFIER NOT NULL, 
+    [SupplierId]		UNIQUEIDENTIFIER NULL, 
+    [VariationSku]		VARCHAR(50) NOT NULL, 
+    [VariationName]		VARCHAR(50) NOT NULL, 
+    [VariationOrdinal]	INT NOT NULL, 
+    [VariationPrice]	MONEY NOT NULL,  
+    CONSTRAINT [FK_ItemVariation_To_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item]([ItemId]) 
 )

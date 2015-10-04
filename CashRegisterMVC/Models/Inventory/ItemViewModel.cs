@@ -12,14 +12,11 @@ namespace CashRegisterMVC.Models
         }
 
         public Item ItemData { get; set; }
-        public Guid Id => ItemData.Id;
-        public string CompanyName => ItemData.CompanyName.Trim();
-        public string Name => ItemData.Name.Trim();
-        public string Description => ItemData.Description.Trim();
-        public int TotalQuantity
-        {
-            get { return ItemData.Variations.Sum(i => i.Ordinal); }
-        }
+        public Guid Id => ItemData.ItemId;
+        public string CompanyName => ItemData.ItemCompanyName.Trim();
+        public string Name => ItemData.ItemCompanyName.Trim();
+        public string Description => ItemData.ItemDescription.Trim();
+        public int TotalInventory { get; set; }
     }
 
     public class ItemVariationViewModel
@@ -33,9 +30,9 @@ namespace CashRegisterMVC.Models
         }
 
         public string CoreItemName => ItemData.Name;
-        public string Sku => Variation.Sku;
-        public string TypeName => Variation.Name;
-        public int Quantity => Variation.Ordinal;
-        public decimal Price => Variation.Price;
+        public string Sku => Variation.VariationSku;
+        public string TypeName => Variation.VariationName;
+        public int Quantity => Variation.VariationOrdinal;
+        public decimal Price => Variation.VariationPrice;
     }
 }
