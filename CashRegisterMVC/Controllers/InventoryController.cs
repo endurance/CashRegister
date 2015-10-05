@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using CashRegister.Core.Models;
 using CashRegisterMVC.Models;
+using CashRegisterMVC.Models.Inventory;
 using Services;
 
 namespace CashRegisterMVC.Controllers
@@ -13,12 +15,11 @@ namespace CashRegisterMVC.Controllers
         private static readonly string connectionString =
             ConfigurationManager.ConnectionStrings["InventoryDb"].ConnectionString;
 
-        //readonly IRepository _itemRepository = new LinqToSqlItemRepository() { ConnectionString = connectionString };
-        private readonly StoreItemService service = new StoreItemService(connectionString);
+        private readonly StoreItemService _service = new StoreItemService(connectionString);
         // GET: Checkout
         public ActionResult Index()
         {
-            var items = service.GetAllItems();
+            //var items = _service.GetAllItems();
             var itemViewModels = items.Select(i => new ItemViewModel(i)).ToList();
             return View(itemViewModels);
         }
@@ -26,12 +27,10 @@ namespace CashRegisterMVC.Controllers
         // GET: Checkout/Details/5
         public ActionResult ItemVariationDetails(Guid id)
         {
-
-
-            //var itemModel = service.GetItem(id);
-            //var itemVariationViewModels =
-            //    itemModel.Variations.Select(i => new ItemVariationViewModel(itemModel, i)).ToList();
-            //return View(itemVariationViewModels);
+            // get all store items for a certain item id
+            var storeItems = _service.GetAllStoreItemsWithId(id);
+            var viewModels = storeItems.Select(i => new StoreItemViewModel() {StoreItem = i});
+            return View(viewModels);
         }
 
         // GET: Checkout/Create
@@ -46,20 +45,8 @@ namespace CashRegisterMVC.Controllers
         {
             try
             {
-                var props = typeof (Item).GetProperties();
-                var itemToInsert = new Item();
-
-                var keysThatMatch =
-                    from key in collection.AllKeys
-                    join propName in props on key equals propName.Name
-                    select key;
-
-                foreach (var key in keysThatMatch)
-                {
-                    typeof (Item).GetProperty(key).SetValue(itemToInsert, collection[key]);
-                }
-
-                _itemRepository.AddItem(itemToInsert);
+                var dict = ConvertFormCollectionIntoDictionary(collection);
+                _service.InsertItem(dict);
                 return RedirectToAction("Index");
             }
             catch
@@ -68,10 +55,21 @@ namespace CashRegisterMVC.Controllers
             }
         }
 
+        private static Dictionary<string, string> ConvertFormCollectionIntoDictionary(FormCollection collection)
+        {
+            var dict = (from key in collection.AllKeys
+                select new
+                {
+                    Key = key,
+                    Value = collection[key]
+                }).ToDictionary(prop1 => prop1.Key, prop2 => prop2.Value);
+            return dict;
+        }
+
         // GET: Checkout/Edit/5
         public ActionResult EditAnItem(Guid id)
         {
-            var item = _itemRepository.GetItem(id);
+            var item = _service.GetItem(id);
             var itemViewModel = new ItemViewModel(item);
             return View(itemViewModel);
         }
@@ -83,7 +81,7 @@ namespace CashRegisterMVC.Controllers
             try
             {
                 var props = typeof (Item).GetProperties();
-                var itemToUpdate = _itemRepository.GetItem(id);
+                var itemToUpdate = _service.GetItem(id);
 
                 var keysThatMatch =
                     from key in collection.AllKeys
@@ -96,7 +94,7 @@ namespace CashRegisterMVC.Controllers
                     typeof (Item).GetProperty(key).SetValue(itemToUpdate, collection[key]);
                 }
 
-                _itemRepository.UpdateItem(itemToUpdate);
+                _service.ItemRepository.Update(itemToUpdate);
                 return RedirectToAction("Index");
             }
             catch

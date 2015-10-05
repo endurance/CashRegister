@@ -1,7 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using CashRegister.Infrastructure.Interfaces;
-using CashRegister.Infrastructure.Models;
-using CashRegister.Infrastructure.Repository;
 
 namespace CashRegisterDesktopApp.ViewModel
 {

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<CashRegisterMVC.Models.ItemVariationViewModel>
+﻿@model IEnumerable<CashRegisterMVC.Models.Inventory.StoreItemViewModel>
 
 @{
-    ViewBag.Title = Html.DisplayFor(modelItem => modelItem.FirstOrDefault().CoreItemName);
+    ViewBag.Title = Html.DisplayFor(modelItem => modelItem.FirstOrDefault().VariationName);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.DisplayFor(modelItem => modelItem.First().CoreItemName) Item Types</h2>
+<h2>@Html.DisplayFor(modelItem => modelItem.First().VariationName) Item Types</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -16,10 +16,10 @@
             @Html.DisplayNameFor(model => model.Sku)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TypeName)
+            @Html.DisplayNameFor(model => model.VariationName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.InventoryAmount)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Price)
@@ -27,25 +27,26 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sku)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TypeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sku)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VariationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventoryAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+            </td>
+        </tr>
+    }
 
 </table>

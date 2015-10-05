@@ -54,6 +54,22 @@ namespace DataAccess
                     select (StoreItem)StoreItemMapper(obj)).ToList();
                 return query;
             }
+        }
+
+        public List<StoreItem> GetAllStoreItemsByItemId(Guid id)
+        {
+            var sql = "SELECT * from Item " +
+                      "INNER JOIN ItemVariation on Item.ItemId = ItemVariation.ItemId " +
+                      "where Item.ItemId = @id";
+            using (var connection = GetDbConnection(ConnectionString))
+            {
+                var result = connection.Query(sql, new { id = id});
+                if (result == null) return null;
+                var query = (from obj in result
+                             select (StoreItem)StoreItemMapper(obj)).ToList();
+                return query;
+            }
+
         } 
 
         public void Insert(StoreItem item)

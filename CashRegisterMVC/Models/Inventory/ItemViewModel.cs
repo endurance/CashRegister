@@ -29,7 +29,7 @@ namespace CashRegisterMVC.Models
             Variation = itemVariationData;
         }
 
-        public string CoreItemName => ItemData.Name;
+        public string CoreItemName => ItemData.ItemBrandName;
         public string Sku => Variation.VariationSku;
         public string TypeName => Variation.VariationName;
         public int Quantity => Variation.VariationOrdinal;

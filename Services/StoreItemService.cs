@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CashRegister.Core.Models;
 using DataAccess;
 
@@ -7,15 +8,34 @@ namespace Services
 {
     public class StoreItemService
     {
-        private ItemRepository ItemRepository { get; set; }
-        private ItemVariationRepository ItemVariationRepository { get; set; }
-        private StoreItemRepository StoreItemRepository { get; set; }
+        public ItemRepository ItemRepository { get; set; }
+        public ItemVariationRepository ItemVariationRepository { get; set; }
+        public StoreItemRepository StoreItemRepository { get; set; }
 
         public StoreItemService(string connectionString)
         {
             ItemRepository = new ItemRepository() { ConnectionString = connectionString };
             ItemVariationRepository = new ItemVariationRepository() { ConnectionString = connectionString };
             StoreItemRepository = new StoreItemRepository() { ConnectionString = connectionString };
+        }
+
+
+        public void InsertItem(Dictionary<string, string> collection)
+        {
+            var props = typeof(Item).GetProperties();
+            var itemToInsert = new Item();
+
+            var keysThatMatch =
+                from key in collection.Keys
+                join propName in props on key equals propName.Name
+                select key;
+
+            foreach (var key in keysThatMatch)
+            {
+                typeof(Item).GetProperty(key).SetValue(itemToInsert, collection[key]);
+            }
+
+            ItemRepository.Insert(itemToInsert);
         }
 
         public List<Item> GetAllItems()
@@ -46,6 +66,11 @@ namespace Services
         public List<StoreItem> GetAllStoreItems()
         {
             return StoreItemRepository.GetAllStoreItems();
-        }  
+        }
+
+        public List<StoreItem> GetAllStoreItemsWithId(Guid itemId)
+        {
+            return StoreItemRepository.GetAllStoreItemsByItemId(itemId);
+        }
     }
 }

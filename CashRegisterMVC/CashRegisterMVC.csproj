@@ -126,6 +126,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Inventory\ItemViewModel.cs" />
+    <Compile Include="Models\Inventory\StoreItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,13 +181,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CashRegister.Infrastructure\CashRegister.Infrastructure.csproj">
-      <Project>{e0cd51e9-34aa-449c-b353-93224fcddb8a}</Project>
-      <Name>CashRegister.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\CashRegister.Core.csproj">
       <Project>{0bde128e-0fb7-4ee0-a3d5-a449dc01d78e}</Project>
       <Name>CashRegister.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{4C9E71FD-627A-4081-B5DC-7AB28AB25E1C}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{515e6f4a-dc63-44c2-a922-393a21bb4358}</Project>
+      <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
