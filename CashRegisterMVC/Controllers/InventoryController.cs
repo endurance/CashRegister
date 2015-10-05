@@ -19,8 +19,9 @@ namespace CashRegisterMVC.Controllers
         // GET: Checkout
         public ActionResult Index()
         {
-            //var items = _service.GetAllItems();
-            var itemViewModels = items.Select(i => new ItemViewModel(i)).ToList();
+            var allItems = _service.GetAllItems();
+            var itemInventoryDictionary = _service.GetInventoryPerItem();
+            List<ItemViewModel> itemViewModels = allItems.Select(item => new ItemViewModel(item) {TotalInventory = itemInventoryDictionary[item.ItemId]}).ToList();
             return View(itemViewModels);
         }
 
