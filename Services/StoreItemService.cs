@@ -18,9 +18,7 @@ namespace Services
         public ItemRepository ItemRepository { get; set; }
         public ItemVariationRepository ItemVariationRepository { get; set; }
         public StoreItemRepository StoreItemRepository { get; set; }
-
-
-
+        
         public Dictionary<Guid, int> GetInventoryPerItem()
         {
             var allVariations = ItemVariationRepository.GetAll();
@@ -39,22 +37,49 @@ namespace Services
 
         public void InsertItem(Dictionary<string, string> collection)
         {
-            var props = typeof (Item).GetProperties();
-            var itemToInsert = new Item();
-
-            var keysThatMatch =
-                from key in collection.Keys
-                join propName in props on key equals propName.Name
-                select key;
-
-            foreach (var key in keysThatMatch)
-            {
-                typeof (Item).GetProperty(key).SetValue(itemToInsert, collection[key]);
-            }
-
+            var itemToInsert = ItemMapping(collection);
             ItemRepository.Insert(itemToInsert);
         }
 
+        public void UpdateItem(Dictionary<string, string> collection)
+        {
+            var itemToUpdate = ItemMapping(collection);
+            ItemRepository.Update(itemToUpdate);
+        }
+
+        public void InsertItemVariation(Dictionary<string, string> collection)
+        {
+            var itemVariationToUpdate = ItemVariationMapping(collection);
+            ItemVariationRepository.Insert(itemVariationToUpdate);
+        }
+
+        public void UpdateItemVariation(Dictionary<string, string> collection)
+        {
+            var itemVariationToUpdate = ItemVariationMapping(collection);
+            ItemVariationRepository.Update(itemVariationToUpdate);
+        }
+        
+        private static Item ItemMapping(Dictionary<string, string> collection)
+        {
+            var itemToInsert = new Item
+            {
+                ItemBrandName = collection["ItemBrandName"],
+                ItemCompanyName = collection["ItemCompanyName"],
+                ItemDescription = collection["ItemDescription"]
+            };
+            return itemToInsert;
+        }
+        private static ItemVariation ItemVariationMapping(Dictionary<string, string> collection)
+        {
+            var itemToInsert = new ItemVariation
+            {
+                VariationName = collection["VariationName"],
+                VariationOrdinal = Convert.ToInt32(collection["VariationOrdinal"]),
+                VariationPrice = Convert.ToDecimal(collection["VariationPrice"]),
+                VariationSku = collection["VariationSku"]
+            };
+            return itemToInsert;
+        }
         public List<Item> GetAllItems()
         {
             return ItemRepository.GetAll();

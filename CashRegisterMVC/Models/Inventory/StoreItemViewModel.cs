@@ -1,16 +1,21 @@
-﻿using CashRegister.Core.Models;
-
+﻿using System.ComponentModel;
+using CashRegister.Core.Models;
 namespace CashRegisterMVC.Models.Inventory
 {
     public class StoreItemViewModel
     {
         public StoreItem StoreItem { get; set; }
+        [DisplayName("Company Name")]
         public string CompanyName => StoreItem.CompanyName.Trim();
-        public string ItemBrandName => StoreItem.ItemBrandName.Trim();
+        [DisplayName("Description")]
         public string Description => StoreItem.Description.Trim();
+        [DisplayName("Variation Name")]
         public string VariationName => StoreItem.VariationName.Trim();
+        [DisplayName("Quantity")]
         public int InventoryAmount => StoreItem.InventoryAmount;
+        [DisplayName("Price")]
         public decimal Price => StoreItem.Price;
+        [DisplayName("Sku")]
         public string Sku => StoreItem.Sku;
     }
 }

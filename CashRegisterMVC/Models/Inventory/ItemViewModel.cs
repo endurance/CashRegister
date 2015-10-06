@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using CashRegister.Core.Models;
 
@@ -13,9 +14,13 @@ namespace CashRegisterMVC.Models
 
         public Item ItemData { get; set; }
         public Guid Id => ItemData.ItemId;
+        [DisplayName("Company Name")]
         public string CompanyName => ItemData.ItemCompanyName.Trim();
-        public string Name => ItemData.ItemCompanyName.Trim();
+        [DisplayName("Brand Name")]
+        public string ItemBrandName => ItemData.ItemBrandName.Trim();
+        [DisplayName("Description")]
         public string Description => ItemData.ItemDescription.Trim();
+        [DisplayName("Variation Quantity")]
         public int TotalInventory { get; set; }
     }
 
@@ -28,11 +33,15 @@ namespace CashRegisterMVC.Models
             ItemData = itemData;
             Variation = itemVariationData;
         }
-
-        public string CoreItemName => ItemData.ItemBrandName;
-        public string Sku => Variation.VariationSku;
-        public string TypeName => Variation.VariationName;
-        public int Quantity => Variation.VariationOrdinal;
-        public decimal Price => Variation.VariationPrice;
+        [DisplayName("Brand Name")]
+        public string ItemBrandName => ItemData.ItemBrandName;
+        [DisplayName("Variation Sku")]
+        public string VariationSku => Variation.VariationSku;
+        [DisplayName("Variation Name")]
+        public string VariationName => Variation.VariationName;
+        [DisplayName("Quantity")]
+        public int VariationOrdinal => Variation.VariationOrdinal;
+        [DisplayName("Price")]
+        public decimal VariationPrice => Variation.VariationPrice;
     }
 }

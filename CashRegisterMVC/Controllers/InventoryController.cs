@@ -75,13 +75,20 @@ namespace CashRegisterMVC.Controllers
             return View(itemViewModel);
         }
 
+        public ActionResult EditAnItemVariation(Guid variationId)
+        {
+            var storeItem = _service.GetStoreItem(variationId);
+            var vm = new StoreItemViewModel() { StoreItem = storeItem };
+            return View(vm);
+        }
+
         // POST: Checkout/Edit/5
         [HttpPost]
         public ActionResult EditAnItem(Guid id, FormCollection collection)
         {
             try
             {
-                var props = typeof (Item).GetProperties();
+                var props = typeof(Item).GetProperties();
                 var itemToUpdate = _service.GetItem(id);
 
                 var keysThatMatch =
@@ -92,10 +99,26 @@ namespace CashRegisterMVC.Controllers
 
                 foreach (var key in keysThatMatch)
                 {
-                    typeof (Item).GetProperty(key).SetValue(itemToUpdate, collection[key]);
+                    typeof(Item).GetProperty(key).SetValue(itemToUpdate, collection[key]);
                 }
 
                 _service.ItemRepository.Update(itemToUpdate);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        
+        // POST: Checkout/Edit/5
+        [HttpPost]
+        public ActionResult EditAnItemVariation(Guid variationId, FormCollection collection)
+        {
+            try
+            {
+                var dict = ConvertFormCollectionIntoDictionary(collection);
+                _service.UpdateItemVariation(dict);
                 return RedirectToAction("Index");
             }
             catch
@@ -116,7 +139,6 @@ namespace CashRegisterMVC.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
             }
