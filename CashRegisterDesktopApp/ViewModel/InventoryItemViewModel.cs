@@ -35,30 +35,30 @@ namespace CashRegisterDesktopApp.ViewModel
 
         public int Inventory
         {
-            get { return Variation.VariationOrdinal; }
+            get { return Variation.Quantity; }
             set
             {
-                Variation.VariationOrdinal = value;
+                Variation.Quantity = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal BasePrice
         {
-            get { return Variation.VariationPrice; }
+            get { return Variation.Price; }
             set
             {
-                Variation.VariationPrice = value;
+                Variation.Price = value;
                 OnPropertyChanged();
             }
         }
 
         public string SKU
         {
-            get { return Variation.VariationSku; }
+            get { return Variation.Sku; }
             set
             {
-                Variation.VariationSku = value;
+                Variation.Sku = value;
                 OnPropertyChanged();
             }
         }

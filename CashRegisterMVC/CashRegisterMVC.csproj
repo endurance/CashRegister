@@ -120,11 +120,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Inventory\ItemController.cs" />
+    <Compile Include="Controllers\Inventory\ItemVariationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Inventory\ItemVariationViewModel.cs" />
     <Compile Include="Models\Inventory\ItemViewModel.cs" />
     <Compile Include="Models\Inventory\StoreItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,14 +166,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Inventory\Index.cshtml" />
-    <Content Include="Views\Inventory\CreateAnItem.cshtml" />
-    <Content Include="Views\Inventory\EditAnItem.cshtml" />
-    <Content Include="Views\Inventory\EditAnItemVariation.cshtml" />
-    <None Include="Views\Inventory\ItemVariationDetails.cshtml" />
+    <Content Include="Views\Item\ViewItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Inventory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -186,9 +185,9 @@
       <Project>{0bde128e-0fb7-4ee0-a3d5-a449dc01d78e}</Project>
       <Name>CashRegister.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{4C9E71FD-627A-4081-B5DC-7AB28AB25E1C}</Project>
-      <Name>DataAccess</Name>
+    <ProjectReference Include="..\DapperDataAccess\DapperDataAccess.csproj">
+      <Project>{ecec7f58-4aad-4852-8ba2-5e43064342df}</Project>
+      <Name>DapperDataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{515e6f4a-dc63-44c2-a922-393a21bb4358}</Project>

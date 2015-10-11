@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{515E6F4A-DC63-44C2-A922-393A21BB4358}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDataAccess", "DapperDataAccess\DapperDataAccess.csproj", "{ECEC7F58-4AAD-4852-8BA2-5E43064342DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{515E6F4A-DC63-44C2-A922-393A21BB4358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{515E6F4A-DC63-44C2-A922-393A21BB4358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{515E6F4A-DC63-44C2-A922-393A21BB4358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECEC7F58-4AAD-4852-8BA2-5E43064342DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECEC7F58-4AAD-4852-8BA2-5E43064342DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECEC7F58-4AAD-4852-8BA2-5E43064342DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECEC7F58-4AAD-4852-8BA2-5E43064342DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +107,6 @@ Global
 		{ABE73844-75AE-4164-8DF4-FA8647D4584D} = {909AAA79-19CA-4AFD-AB85-A85E64D5070F}
 		{4C9E71FD-627A-4081-B5DC-7AB28AB25E1C} = {711C4F13-F472-4D0D-98A5-B3BE2BE5E4A7}
 		{515E6F4A-DC63-44C2-A922-393A21BB4358} = {711C4F13-F472-4D0D-98A5-B3BE2BE5E4A7}
+		{ECEC7F58-4AAD-4852-8BA2-5E43064342DF} = {711C4F13-F472-4D0D-98A5-B3BE2BE5E4A7}
 	EndGlobalSection
 EndGlobal

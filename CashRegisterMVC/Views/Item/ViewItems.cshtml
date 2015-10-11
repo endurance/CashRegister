@@ -1,14 +1,14 @@
-﻿@model IEnumerable<CashRegisterMVC.Models.ItemViewModel>
+﻿@model IEnumerable<CashRegisterMVC.Models.Inventory.ItemViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ViewItems";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>ViewItems</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateAnItem")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -23,9 +23,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TotalInventory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
         </th>
         <th></th>
     </tr>
@@ -45,12 +42,9 @@
             @Html.DisplayFor(modelItem => item.TotalInventory)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ItemData.ItemId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditAnItem", new {  id=item.ItemData.ItemId  }) |
-            @Html.ActionLink("Details", "ItemVariationDetails", new { id = item.ItemData.ItemId}) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ItemData.ItemId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

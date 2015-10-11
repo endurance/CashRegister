@@ -10,7 +10,7 @@ namespace CashRegister.Core.Models
         public string ItemBrandName { get; set; }
         public string Description { get; set; }
         public string VariationName { get; set; }
-        public int InventoryAmount { get; set; }
+        public int Quantity { get; set; }
         public decimal Price { get; set; }
         public string Sku { get; set; }
     }

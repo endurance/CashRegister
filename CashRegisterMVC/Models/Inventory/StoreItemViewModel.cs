@@ -12,10 +12,11 @@ namespace CashRegisterMVC.Models.Inventory
         [DisplayName("Variation Name")]
         public string VariationName => StoreItem.VariationName.Trim();
         [DisplayName("Quantity")]
-        public int InventoryAmount => StoreItem.InventoryAmount;
+        public int InventoryAmount => StoreItem.Quantity;
         [DisplayName("Price")]
         public decimal Price => StoreItem.Price;
         [DisplayName("Sku")]
         public string Sku => StoreItem.Sku;
+        
     }
 }

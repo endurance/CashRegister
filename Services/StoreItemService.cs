@@ -25,7 +25,7 @@ namespace Services
             var query = (from v in allVariations
                 group v by v.ItemId
                 into g
-                let totalInventory = g.ToList().Sum(i => i.VariationOrdinal)
+                let totalInventory = g.ToList().Sum(i => i.Quantity)
                 select new
                 {
                     g.Key,
@@ -63,9 +63,9 @@ namespace Services
         {
             var itemToInsert = new Item
             {
-                ItemBrandName = collection["ItemBrandName"],
-                ItemCompanyName = collection["ItemCompanyName"],
-                ItemDescription = collection["ItemDescription"]
+                BrandName = collection["ItemBrandName"],
+                OriginalCompanyName = collection["ItemCompanyName"],
+                Description = collection["ItemDescription"]
             };
             return itemToInsert;
         }
@@ -74,9 +74,9 @@ namespace Services
             var itemToInsert = new ItemVariation
             {
                 VariationName = collection["VariationName"],
-                VariationOrdinal = Convert.ToInt32(collection["VariationOrdinal"]),
-                VariationPrice = Convert.ToDecimal(collection["VariationPrice"]),
-                VariationSku = collection["VariationSku"]
+                Quantity = Convert.ToInt32(collection["VariationOrdinal"]),
+                Price = Convert.ToDecimal(collection["VariationPrice"]),
+                Sku = collection["VariationSku"]
             };
             return itemToInsert;
         }

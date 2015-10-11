@@ -1,15 +1,30 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CashRegister.Core.Models
 {
-    public class Supplier
+    [Table("Supplier")]
+    public class Supplier : IDataModel<Guid>
     {
-        public Guid SupplierId { get; set; } = Guid.NewGuid();
-        public string SupplierName { get; set; }
-        public string SupplierDescription { get; set; }
-        public string SupplierAddress1 { get; set; }
-        public string SupplierAddress2 { get; set; }
-        public string SupplierMainPhoneNumber { get; set; }
-        public string SupplierAlternatePhoneNumber { get; set; }
+        [Column("SupplierName")]
+        public string Name { get; set; }
+
+        [Column("SupplierDescription")]
+        public string Description { get; set; }
+
+        [Column("SupplierAddress1")]
+        public string Address1 { get; set; }
+
+        [Column("SupplierAddress2")]
+        public string Address2 { get; set; }
+
+        [Column("SupplierMainPhoneNumber")]
+        public string MainPhoneNumber { get; set; }
+
+        [Column("SupplierAlternatePhoneNumber")]
+        public string AlternatePhoneNumber { get; set; }
+
+        [Column("SupplierId")]
+        public Guid Id { get; set; } = Guid.NewGuid();
     }
 }

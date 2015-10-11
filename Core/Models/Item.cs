@@ -5,12 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CashRegister.Core.Models
 {
     [Table("Item")]
-    public class Item
+    public class Item : IDataModel<Guid>
     {
-        [Key]
-        public Guid ItemId { get; set; } = Guid.NewGuid();
-        public string ItemCompanyName { get; set; }
-        public string ItemBrandName { get; set; }
-        public string ItemDescription { get; set; }
+        [Column("ItemCompanyName")]
+        public string OriginalCompanyName { get; set; }
+
+        [Column("ItemBrandName")]
+        public string BrandName { get; set; }
+
+        [Column("ItemDescription")]
+        public string Description { get; set; }
+
+        [Column("ItemId"), Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
     }
 }

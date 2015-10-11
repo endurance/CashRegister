@@ -25,9 +25,9 @@ namespace CashRegisterDesktopApp.ViewModel
 
         public string Name => Item.Name + " " + SelectedUniqueItem.VariationName;
 
-        public decimal Price => SelectedUniqueItem.VariationPrice;
+        public decimal Price => SelectedUniqueItem.Price;
 
-        public decimal CalculatedPrice => (SelectedUniqueItem.VariationPrice*Quantity);
+        public decimal CalculatedPrice => (SelectedUniqueItem.Price*Quantity);
 
         public int Quantity
         {

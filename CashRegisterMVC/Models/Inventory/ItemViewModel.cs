@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using CashRegister.Core.Models;
 
-namespace CashRegisterMVC.Models
+namespace CashRegisterMVC.Models.Inventory
 {
     public class ItemViewModel
     {
@@ -13,35 +12,14 @@ namespace CashRegisterMVC.Models
         }
 
         public Item ItemData { get; set; }
-        public Guid Id => ItemData.ItemId;
+        public Guid Id => ItemData.Id;
         [DisplayName("Company Name")]
-        public string CompanyName => ItemData.ItemCompanyName.Trim();
+        public string CompanyName => ItemData.OriginalCompanyName.Trim();
         [DisplayName("Brand Name")]
-        public string ItemBrandName => ItemData.ItemBrandName.Trim();
+        public string ItemBrandName => ItemData.BrandName.Trim();
         [DisplayName("Description")]
-        public string Description => ItemData.ItemDescription.Trim();
+        public string Description => ItemData.Description.Trim();
         [DisplayName("Variation Quantity")]
         public int TotalInventory { get; set; }
-    }
-
-    public class ItemVariationViewModel
-    {
-        public ItemVariation Variation { get; set; }
-        public Item ItemData { get; set; }
-        public ItemVariationViewModel(Item itemData, ItemVariation itemVariationData)
-        {
-            ItemData = itemData;
-            Variation = itemVariationData;
-        }
-        [DisplayName("Brand Name")]
-        public string ItemBrandName => ItemData.ItemBrandName;
-        [DisplayName("Variation Sku")]
-        public string VariationSku => Variation.VariationSku;
-        [DisplayName("Variation Name")]
-        public string VariationName => Variation.VariationName;
-        [DisplayName("Quantity")]
-        public int VariationOrdinal => Variation.VariationOrdinal;
-        [DisplayName("Price")]
-        public decimal VariationPrice => Variation.VariationPrice;
     }
 }

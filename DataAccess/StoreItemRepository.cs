@@ -90,7 +90,7 @@ namespace DataAccess
                         item.VariationId,
                         VariationSku = item.Sku,
                         item.VariationName,
-                        VariationOrdinal = item.InventoryAmount,
+                        VariationOrdinal = item.Quantity,
                         VariationPrice = item.Price
                     });
             }
@@ -121,7 +121,7 @@ namespace DataAccess
                         item.VariationId,
                         VariationSku = item.Sku,
                         item.VariationName,
-                        VariationOrdinal = item.InventoryAmount,
+                        VariationOrdinal = item.Quantity,
                         VariationPrice = item.Price
                     });
             }
@@ -140,7 +140,7 @@ namespace DataAccess
                 // ItemVariation Mapping
                 Sku = result.VariationSku,
                 VariationName = result.VariationName,
-                InventoryAmount = result.VariationOrdinal,
+                Quantity = result.VariationOrdinal,
                 Price = result.VariationPrice
             };
             return item;
