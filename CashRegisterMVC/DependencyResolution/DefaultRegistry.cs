@@ -15,6 +15,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using CashRegister.Core.Connection;
+using CashRegister.Core.Repository;
+using CashRegister.Core.Service;
+using DapperDataAccess;
+
 namespace CashRegisterMVC.DependencyResolution {
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
@@ -26,12 +31,33 @@ namespace CashRegisterMVC.DependencyResolution {
             Scan(
                 scan => {
                     scan.TheCallingAssembly();
+                    scan.Assembly("CashRegister.Core");
+                    scan.Assembly("DapperDataAccess");
+                    scan.Assembly("Services");
+                    scan.IncludeNamespace("CashRegister.Core");
+                    scan.IncludeNamespace("DapperDataAccess");
+                    scan.IncludeNamespace("Services");
                     scan.WithDefaultConventions();
 					scan.With(new ControllerConvention());
                 });
-            //For<IExample>().Use<Example>();
+            //For<IConnectionProvider>().Use<ConnectionProvider>();
+            //For<IConnectionStringProvider>().Use<ConnectionStringProvider>();
         }
 
         #endregion
     }
+
+    //public class CashRegisterRegistry : Registry
+    //{
+    //    public CashRegisterRegistry()
+    //    {
+    //        Scan(
+    //            scan => {
+    //                scan.TheCallingAssembly();
+    //                scan.WithDefaultConventions();
+    //                scan.With(new ControllerConvention());
+    //            });
+    //        //For<IExample>().Use<Example>();
+    //    }
+    //}
 }

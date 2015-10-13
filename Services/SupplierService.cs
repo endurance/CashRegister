@@ -6,5 +6,9 @@ using DapperDataAccess;
 namespace Services
 {
     public class SupplierService : BaseService<SupplierRepository, Supplier, Guid>, ISupplierService
-    { }
+    {
+        public SupplierService(SupplierRepository repository) : base(repository)
+        {
+        }
+    }
 }

@@ -7,6 +7,8 @@ namespace CashRegister.Core.Models
     [Table("ItemVariation")]
     public class ItemVariation : IDataModel<Guid>
     {
+        [Column("VariationId"), Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Column("ItemId")]
         public Guid ItemId { get; set; }
 
@@ -19,10 +21,9 @@ namespace CashRegister.Core.Models
         [Column("VariationPrice")]
         public decimal Price { get; set; }
 
-        [Column("Sku")]
+        [Column("VariationSku")]
         public string Sku { get; set; }
 
-        [Column("VariationId"), Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+
     }
 }

@@ -12,5 +12,9 @@ namespace Services
         {
             return Repository.GetAllItemVariationsBasedOnItem(itemKey);
         }
+
+        public ItemVariationService(ItemVariationRepository repository) : base(repository)
+        {
+        }
     }
 }

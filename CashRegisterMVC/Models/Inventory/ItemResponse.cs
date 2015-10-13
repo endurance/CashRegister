@@ -4,9 +4,9 @@ using CashRegister.Core.Models;
 
 namespace CashRegisterMVC.Models.Inventory
 {
-    public class ItemViewModel
+    public class ItemResponse
     {
-        public ItemViewModel(Item itemData)
+        public ItemResponse(Item itemData)
         {
             ItemData = itemData;
         }

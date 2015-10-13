@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CashRegisterMVC.Models.Inventory.ItemViewModel>
+﻿@model IEnumerable<CashRegisterMVC.Models.Inventory.ItemResponse>
 
 @{
     ViewBag.Title = "ViewItems";
@@ -42,9 +42,10 @@
             @Html.DisplayFor(modelItem => item.TotalInventory)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("View This Item", "ViewSingle", new {itemId = item.Id}) |
+            @Html.ActionLink("Edit This Item", "Edit", new {id = item.Id}) |
+            @Html.ActionLink("View Item Variation Details", "ViewItemVariation", new {itemId = item.Id}) |
+            @Html.ActionLink("Delete This Item (Will Delete All Variations)", "Delete", new {id = item.Id})
         </td>
     </tr>
 }

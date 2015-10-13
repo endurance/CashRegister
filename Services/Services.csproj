@@ -56,10 +56,6 @@
       <Project>{ECEC7F58-4AAD-4852-8BA2-5E43064342DF}</Project>
       <Name>DapperDataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{4c9e71fd-627a-4081-b5dc-7ab28ab25e1c}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

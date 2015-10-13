@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CashRegisterMVC.Models.Inventory.ItemVariationViewModel>
+
+@{
+    ViewBag.Title = "ListVariationsOfAnItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListVariationsOfAnItem</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VariationSku)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VariationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VariationOrdinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VariationPrice)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VariationSku)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VariationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VariationOrdinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VariationPrice)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -10,6 +10,12 @@ namespace Services
         where TModelType : IDataModel<TKeyType>
     {
         protected TRepositoryType Repository { get; set; }
+        
+        protected BaseService(TRepositoryType repository)
+        {
+            Repository = repository;
+        }
+
         public virtual TModelType Get(TKeyType key)
         {
             return Repository.Get(key);
