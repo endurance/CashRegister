@@ -15,33 +15,28 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Web.Http;
-using System.Web.Http.Controllers;
 using CashRegister.Core.Connection;
-using CashRegister.Core.Repository;
-using CashRegister.Core.Service;
-using CashRegisterMVC.Controllers.WebApi;
 using DapperDataAccess;
 using Services;
+using StructureMap.Configuration.DSL;
 
-namespace CashRegisterMVC.DependencyResolution {
-    using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
-	
-    public class DefaultRegistry : Registry {
+namespace CashRegisterMVC.DependencyResolution
+{
+    public class DefaultRegistry : Registry
+    {
         #region Constructors and Destructors
 
-        public DefaultRegistry() {
+        public DefaultRegistry()
+        {
             Scan(
-                scan => {
+                scan =>
+                {
                     scan.AssemblyContainingType<IConnectionStringProvider>();
                     scan.AssemblyContainingType<ConnectionStringProvider>();
                     scan.AssemblyContainingType<ItemService>();
-                    //scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
-					scan.With(new ControllerConvention());
+                    scan.With(new ControllerConvention());
                 });
-            //For<ApiController>().Use<ItemApiController>();
         }
 
         #endregion
