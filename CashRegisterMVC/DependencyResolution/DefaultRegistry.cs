@@ -15,10 +15,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Web.Http;
+using System.Web.Http.Controllers;
 using CashRegister.Core.Connection;
 using CashRegister.Core.Repository;
 using CashRegister.Core.Service;
+using CashRegisterMVC.Controllers.WebApi;
 using DapperDataAccess;
+using Services;
 
 namespace CashRegisterMVC.DependencyResolution {
     using StructureMap.Configuration.DSL;
@@ -30,34 +34,16 @@ namespace CashRegisterMVC.DependencyResolution {
         public DefaultRegistry() {
             Scan(
                 scan => {
-                    scan.TheCallingAssembly();
-                    scan.Assembly("CashRegister.Core");
-                    scan.Assembly("DapperDataAccess");
-                    scan.Assembly("Services");
-                    scan.IncludeNamespace("CashRegister.Core");
-                    scan.IncludeNamespace("DapperDataAccess");
-                    scan.IncludeNamespace("Services");
+                    scan.AssemblyContainingType<IConnectionStringProvider>();
+                    scan.AssemblyContainingType<ConnectionStringProvider>();
+                    scan.AssemblyContainingType<ItemService>();
+                    //scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
 					scan.With(new ControllerConvention());
                 });
-            //For<IConnectionProvider>().Use<ConnectionProvider>();
-            //For<IConnectionStringProvider>().Use<ConnectionStringProvider>();
+            //For<ApiController>().Use<ItemApiController>();
         }
 
         #endregion
     }
-
-    //public class CashRegisterRegistry : Registry
-    //{
-    //    public CashRegisterRegistry()
-    //    {
-    //        Scan(
-    //            scan => {
-    //                scan.TheCallingAssembly();
-    //                scan.WithDefaultConventions();
-    //                scan.With(new ControllerConvention());
-    //            });
-    //        //For<IExample>().Use<Example>();
-    //    }
-    //}
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Reflection;
 
 namespace Utilities
 {
@@ -13,7 +15,12 @@ namespace Utilities
 
         public static ColumnAttribute GetColumnAttribute(this Type t)
         {
-            return (ColumnAttribute)Attribute.GetCustomAttribute(t, typeof(ColumnAttribute));
+            var propertyWithKey = (from property in t.GetProperties()
+                                    let attributes = property.GetCustomAttributes(true)
+                                    from attribute in attributes
+                                    where attribute is KeyAttribute
+                                    select property).First();
+            return propertyWithKey.GetCustomAttribute<ColumnAttribute>();
         }
     }
 }

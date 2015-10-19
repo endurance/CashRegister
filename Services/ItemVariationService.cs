@@ -13,6 +13,16 @@ namespace Services
             return Repository.GetAllItemVariationsBasedOnItem(itemKey);
         }
 
+        public void DeleteBatch(IEnumerable<Guid> variationKeys)
+        {
+            Repository.DeleteBatch(variationKeys);
+        }
+
+        public void DeleteBatch(IEnumerable<ItemVariation> variations)
+        {
+            Repository.DeleteBatch(variations);
+        }
+
         public ItemVariationService(ItemVariationRepository repository) : base(repository)
         {
         }

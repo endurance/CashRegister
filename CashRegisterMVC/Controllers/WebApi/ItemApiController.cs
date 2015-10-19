@@ -9,20 +9,45 @@ using CashRegisterMVC.Models.Inventory;
 
 namespace CashRegisterMVC.Controllers.WebApi
 {
+    [RoutePrefix("api/items")]
     public class ItemApiController : ApiController
     {
-        private IItemService ItemService { get; set; }
+        private IItemService ItemService { get; }
 
         public ItemApiController(IItemService itemService)
         {
             ItemService = itemService;
         }
+        [Route("")]
         [ResponseType(typeof(IEnumerable<ItemResponse>))]
+        [HttpGet]
         public IHttpActionResult Get()
         {
-            var items = ItemService.GetAll();
-            var itemResponses = items.Select(item => new ItemResponse(item));
-            return Ok(itemResponses);
+            // Service Call
+            var allItems = ItemService.GetAllWithInventoryCounts();
+            
+            // Conversion
+            List<ItemResponse> itemReponses = (from kvp in allItems
+                                                let item = kvp.Key
+                                                let inventory = kvp.Value
+                                                select new ItemResponse() { ItemData = item, TotalInventory = inventory }).ToList();
+            return Ok(itemReponses);
+        }
+
+        [Route("{id:guid}")]
+        [ResponseType(typeof (ItemResponse))]
+        [HttpGet]
+        public IHttpActionResult Get(Guid id)
+        {
+            var itemDictionary = ItemService.GetWithInventoryCount(id);
+
+            //Conversion
+            var itemResponse = (from kvp in itemDictionary
+                let item = kvp.Key
+                let inventory = kvp.Value
+                select new ItemResponse() { ItemData = item, TotalInventory = inventory}).First();
+
+            return Ok(itemResponse);
         }
         [HttpPut]
         public IHttpActionResult Create(Guid id, [FromBody]Item value)

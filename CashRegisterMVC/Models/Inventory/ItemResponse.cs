@@ -1,16 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using CashRegister.Core.Models;
 
 namespace CashRegisterMVC.Models.Inventory
 {
     public class ItemResponse
     {
-        public ItemResponse(Item itemData)
-        {
-            ItemData = itemData;
-        }
-
+        //[IgnoreDataMember]
         public Item ItemData { get; set; }
         public Guid Id => ItemData.Id;
         [DisplayName("Company Name")]

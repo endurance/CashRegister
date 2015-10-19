@@ -35,5 +35,10 @@ namespace Services
         {
             Repository.Delete(key);
         }
+
+        public virtual void Update(TModelType model)
+        {
+            Repository.Update(model);
+        }
     }
 }

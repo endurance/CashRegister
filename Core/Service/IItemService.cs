@@ -8,5 +8,6 @@ namespace CashRegister.Core.Service
     {
         IDictionary<Item, int> GetAllWithInventoryCounts();
 
+        IDictionary<Item, int> GetWithInventoryCount(Guid id);
     }
 }

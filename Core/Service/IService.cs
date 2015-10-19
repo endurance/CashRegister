@@ -8,6 +8,7 @@ namespace CashRegister.Core.Service
         TModelType Get(TKeyType key);
         IEnumerable<TModelType> GetAll();
         void Insert(TModelType model);
+        void Update(TModelType model);
         void Delete(TKeyType key);
     }
 

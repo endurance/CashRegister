@@ -7,10 +7,7 @@ namespace DapperDataAccess
     {
         public string GetConnectionString(string name = null)
         {
-            if (name == null)
-                return ConfigurationManager.ConnectionStrings["InventoryDb"].ConnectionString;
-
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            return name == null ? ConfigurationManager.ConnectionStrings["InventoryDb"].ConnectionString : ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
     }
 }
