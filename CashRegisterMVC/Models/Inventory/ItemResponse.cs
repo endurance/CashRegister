@@ -7,7 +7,7 @@ namespace CashRegisterMVC.Models.Inventory
 {
     public class ItemResponse
     {
-        //[IgnoreDataMember]
+        [IgnoreDataMember]
         public Item ItemData { get; set; }
         public Guid Id => ItemData.Id;
         [DisplayName("Company Name")]
