@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace CashRegister.Angular.Controllers
 {
-    public class SpaController : Controller
+    public class InventoryController : Controller
     {
-        // GET: Spa
-        public ActionResult Spa()
+        // GET: Inventory
+        public ActionResult InventoryManagement()
         {
             return View();
         }

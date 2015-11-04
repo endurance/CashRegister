@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using CashRegister.Core.Models;
 namespace CashRegisterMVC.Models.Inventory
 {
     public class StoreItemResponse
     {
+        [IgnoreDataMember]
         public StoreItem StoreItem { get; set; }
         [DisplayName("Company Name")]
         public string CompanyName => StoreItem.CompanyName.Trim();
